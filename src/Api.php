@@ -4,10 +4,24 @@ class HostedSmsApi {
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
     private $data;
     
+    /** 
+     * Send message using SimpleApi
+     * 
+     * @param string $userEmail User login in hostedsms.pl
+     * @param string $password User password in hostedsms.pl
+     * @param string $sender Sender name
+     * @param string $phone Phone number where sms should be sent
+     * @param string $message Message text
+     * @param string $v (optional)
+     * @param string $convertMessageToGSM7 (optional)
+     * 
+     * @return string messageId if successful request
+     * 
+     * @throws Exception if failed request
+    */
     public function sendSimpleSms($userEmail, $password, $sender, $phone, $message,
-    $v, $convertMessageToGSM7)
-    {
-        
+    $v = null, $convertMessageToGSM7 = null) {
+
         $this->GetData($userEmail, $password, $sender, $phone, $message, $v, $convertMessageToGSM7);
     
         $jsonData = json_encode($this->data);
@@ -28,11 +42,12 @@ class HostedSmsApi {
         $response = curl_exec($ch);
         
         if (curl_errno($ch))
-            echo 'Error cURL: ' . curl_error($ch);
-        
+            throw new Exception('Call error' . curl_error($ch), curl_errno($ch));
+        if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200)
+            throw new Exception('Request failed' . $response);
+
         curl_close($ch);
-        
-        echo $response;
+
         return $response;
     }
 
