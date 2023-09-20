@@ -21,7 +21,8 @@ if (isset($_POST["submit"])) {
 
 	$hostedSms = new HostedSmsApi();
 	$userEmail = 'mikolaj.walachowski@dcs.pl';
-	$password = 'HsmsTestPassword1';
+	$password = 'HsmsTestPassword2';
+	//$password = 'InvalidPassword';
 	$sender = 'TestowySMS';
 	$phone = '48501954841';
 	$v = null;
@@ -32,7 +33,7 @@ if (isset($_POST["submit"])) {
 	$currentDateTime = date('Y-m-d H:i:s');
 	$message = 'hejka naklejka ' . $currentDateTime;
 
-	try{
+	try {
 
 		$response = $hostedSms->sendSimpleSms(
 			$userEmail,
@@ -41,10 +42,9 @@ if (isset($_POST["submit"])) {
 			$phone,
 			$message
 		);
-		echo $response;
-	}
-	catch (Exception $e){
-		echo $e;
+		echo 'Response: ' . $response;
+	} catch (Exception $e) {
+		echo $e->getMessage();
 	}
 }
 ?>

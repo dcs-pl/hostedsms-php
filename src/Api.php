@@ -32,23 +32,29 @@ class HostedSmsApi {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);  // set body of the request
         
         $headers = [
-            'Accept: application/xml',
             'Content-Type: application/json; charset=UTF-8',
         ];
         
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);  // to set HTTP headers
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // to return the transfer as a string of the return value of {@see curl_exec()}
         
-        $response = curl_exec($ch);
-        
+        $jsonResponse = curl_exec($ch);
+
         if (curl_errno($ch))
             throw new Exception('Call error' . curl_error($ch), curl_errno($ch));
-        if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200)
-            throw new Exception('Request failed' . $response);
+        
+        $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if ($responseCode != 200)
+            throw new Exception('Request failed: ' . $responseCode . ' Error');
+            
+        $response = json_decode($jsonResponse);
+
+        if (isset($response->ErrorMessage))
+            throw new Exception('Request failed' . $response->ErrorMessage);
 
         curl_close($ch);
 
-        return $response;
+        return $response->MessageId;
     }
 
     function GetData($userEmail, $password, $sender, $phone, $message,
