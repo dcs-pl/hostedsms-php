@@ -37,9 +37,7 @@ if (isset($_POST["submit"])) {
 		$password,
 		$sender,
 		$phone,
-		$message,
-		$v,
-		$convertMessageToGSM7
+		$message
 	);
 }
 ?>
