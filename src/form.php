@@ -24,11 +24,14 @@ if (isset($_POST["submit"])) {
 	$password = 'HsmsTestPassword1';
 	$sender = 'TestowySMS';
 	$phone = '48501954841';
+	$v = null;
+	$convertMessageToGSM7 = false;
 
 	date_default_timezone_set('Europe/Warsaw');
 
 	$currentDateTime = date('Y-m-d H:i:s');
-	$message = 'test ' . $currentDateTime;
+	$message = 'siema masz morzee jakoms klode ' . $currentDateTime;
+
 	$hostedSms->sendSimpleSms(
 		$userEmail,
 		$password,
