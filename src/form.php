@@ -30,14 +30,21 @@ if (isset($_POST["submit"])) {
 	date_default_timezone_set('Europe/Warsaw');
 
 	$currentDateTime = date('Y-m-d H:i:s');
-	$message = 'siema masz morzee jakoms klode ' . $currentDateTime;
+	$message = 'hejka naklejka ' . $currentDateTime;
 
-	$hostedSms->sendSimpleSms(
-		$userEmail,
-		$password,
-		$sender,
-		$phone,
-		$message
-	);
+	try{
+
+		$response = $hostedSms->sendSimpleSms(
+			$userEmail,
+			$password,
+			$sender,
+			$phone,
+			$message
+		);
+		echo $response;
+	}
+	catch (Exception $e){
+		echo $e;
+	}
 }
 ?>
