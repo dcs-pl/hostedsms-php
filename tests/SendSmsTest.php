@@ -11,13 +11,13 @@ class SendSmsTest extends TestCase
     }
 
     /** @test */
-    public function Test_Send_Sms_Should_Be_Successfull(): void
+    public function test_Send_Sms_Should_Be_Successfull(): void
     {
         $this->prepareData();
         $userEmail = 'mikolaj.walachowski@dcs.pl';
-	    $password = 'HsmsTestPassword1';
+	    $password = 'HsmsTestPassword4';
 	    $sender = 'TestowySMS';
-	    $phone = '48501954841';
+	    $phone = '48693053151';
 	    $v = null;
 	    $convertMessageToGSM7 = false;
         $message = "test message";
@@ -33,19 +33,22 @@ class SendSmsTest extends TestCase
         );
 
         $this->assertNotEmpty($response);
+        $this->assertNotNull($response);
     }
 
     /** @test */
-    public function Test_Send_Sms_With_Invalid_User_Should_Return_Error_Message()
+    public function test_Send_Sms_With_Invalid_User_Should_Throw_Exception()
     {
         $this->prepareData();
         $userEmail = 'invalid.user@dcs.pl';
 	    $password = 'invalidpassword';
-	    $sender = 'TestowySMS';
-	    $phone = '48501954841';
+	    $sender = 'invalidsender';
+	    $phone = '000000000';
 	    $v = null;
 	    $convertMessageToGSM7 = false;
         $message = "test message";
+
+        $this->expectException(Exception::class);
 
         $response = $this->hostedSms->sendSimpleSms(
             $userEmail,
@@ -56,8 +59,6 @@ class SendSmsTest extends TestCase
             $v,
             $convertMessageToGSM7
         );
-
-        $this->assertStringContainsString('Invalid Credentials or IP', $response);
     }
 }
 ?>
