@@ -21,7 +21,7 @@ if (isset($_POST["submit"])) {
 
 	$hostedSms = new HostedSmsApi();
 	$userEmail = 'mikolaj.walachowski@dcs.pl';
-	$password = 'HsmsTestPassword2';
+	$password = 'HsmsTestPassword4';
 	//$password = 'InvalidPassword';
 	$sender = 'TestowySMS';
 	$phone = '48501954841';
