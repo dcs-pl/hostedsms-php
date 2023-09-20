@@ -1,11 +1,11 @@
 HostedSMS API
 ================
 
-Php API Client for sending SMS messages via HostedSMS.pl SimpleApi
+PHP API Client for sending SMS messages via HostedSMS.pl SimpleApi
 
 **[HostedSMS.pl SimpleApi documentation](https://hostedsms.pl/pl/api-sms/opis-techniczny-api/)**
 
-## Sending SMS
+### Sending SMS
 ```php
     $hostedSmsApi = new HostedSmsApi();
 
@@ -17,7 +17,10 @@ Php API Client for sending SMS messages via HostedSMS.pl SimpleApi
 			$message
 		);
 ```
+### Requirements
+php >= wstawić wersję  
+composer (https://getcomposer.org/)
 
-## Install package with dependencies
+### Install package with dependencies
 
 `komenda dla composera by pobrać paczkę`
