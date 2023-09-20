@@ -7,7 +7,7 @@ class HostedSmsApi {
     public function sendSimpleSms($userEmail, $password, $sender, $phone, $message,
     $v, $convertMessageToGSM7)
     {
-
+        
         $this->GetData($userEmail, $password, $sender, $phone, $message, $v, $convertMessageToGSM7);
     
         $jsonData = json_encode($this->data);
@@ -33,6 +33,7 @@ class HostedSmsApi {
         curl_close($ch);
         
         echo $response;
+        return $response;
     }
 
     function GetData($userEmail, $password, $sender, $phone, $message,
