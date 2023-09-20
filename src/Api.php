@@ -3,8 +3,21 @@ class HostedSmsApi {
     
     public $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
     
+    /** 
+     * Send message using SimpleApi
+     * 
+     * @param string $userEmail User login in hostedsms.pl
+     * @param string $password User password in hostedsms.pl
+     * @param string $sender Sender name
+     * @param string $phone Phone number where sms should be sent
+     * @param string $message Message text
+     * @param string $v (optional)
+     * @param string $convertMessageToGSM7 (optional)
+     * 
+     * @return string messageId
+    */
     public function sendSimpleSms($userEmail, $password, $sender, $phone, $message,
-    $v, $convertMessageToGSM7) {
+    $v = null, $convertMessageToGSM7 = null) {
 
         $data = [
             'UserEmail' => $userEmail,

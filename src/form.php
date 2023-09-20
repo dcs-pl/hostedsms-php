@@ -34,9 +34,7 @@ if (isset($_POST["submit"])) {
 		$password,
 		$sender,
 		$phone,
-		$message,
-		'$v',
-		false
+		$message
 	);
 }
 ?>
