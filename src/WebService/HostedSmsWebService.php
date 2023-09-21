@@ -1,5 +1,6 @@
 <?php
 require 'SoapRequestClient.php';
+/** https://api.hostedsms.pl/WS/smssender.asmx for documentation */
 require 'Responses.php';
 class HostedSmsWebService
 {
@@ -13,6 +14,26 @@ class HostedSmsWebService
     public function __construct($userEmail, $password)
     {
         $this->client = new SoapRequestClient($userEmail, $password); 
+    }
+
+    public function checkPhones($phones)
+    {
+        $params = [
+            'Phones' => $phones
+        ];
+        $response = $this->client->sendRequest('CheckPhones', $params);
+
+        return $response;
+    }
+
+    public function convertToGsm7($text)
+    {
+        $params = [
+            'Text' => $text
+        ];
+        $response = $this->client->sendRequest('ConvertToGsm7', $params);
+
+        return $response;
     }
 
     public function getDeliveryReports($messageIds, $markAsRead = false)
@@ -30,6 +51,48 @@ class HostedSmsWebService
         }
         
         return new GetDeliveryReportsResponse($response);
+    }
+
+    /**
+     * 
+     * @param string $from in 'YYYY-MM-DDTHH:MM:SS' format
+     * @param string $to in 'YYYY-MM-DDTHH:MM:SS' format
+     */
+    public function getInputSmses($from, $to, $recipient, $markAsRead)
+    {
+        $params = [
+            'From' => $from,
+            'To' => $to,
+            'Ricipient' => $recipient,
+            'MarkAsRead' => $markAsRead
+        ];
+        $response = $this->client->sendRequest('GetInputSmses', $params);
+
+        return $response;
+    }
+
+    public function getUnreadDeliveryReports()
+    {
+        $params = [];
+        $response = $this->client->sendRequest('GetUnreadDeliveryReports', $params);
+
+        return $response;
+    }
+
+    public function getUnreadInputSmses()
+    {
+        $params = [];
+        $response = $this->client->sendRequest('GetUnreadInputSmses', $params);
+
+        return $response;
+    }
+
+    public function getValidSenders()
+    {
+        $params = [];
+        $response = $this->client->sendRequest('GetValidSenders', $params);
+
+        return $response;
     }
 
     /** 
@@ -69,6 +132,25 @@ class HostedSmsWebService
 
         return new SendSmsResponse($response);
     }
-    
+
+    public function sendSmses($phones, $message, $sender, $transactionId, 
+    $validityPeriod = null, $priority = 0, $flashSms = false, $costCenter = null, $convertMessageToGSM7 = null)
+    {
+        $params = [
+            'Phones' => $phones,
+            'Message' => $message,
+            'Sender' => $sender,
+            'TransactionId' => $transactionId,
+            'ValidityPeriod' => $validityPeriod,
+            'Priority' => $priority,
+            'FlashSms' => $flashSms,
+            'CostCenter' => $costCenter,
+            'ConvertMessageToGSM7' => $convertMessageToGSM7
+        ];
+
+        $response = $this->client->sendRequest('SendSmses', $params);
+
+        return $response;
+    }
 
 }
