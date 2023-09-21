@@ -20,7 +20,7 @@ class SendSmsTest extends TestCase
 	    $phone = '48693053151';
 	    $v = null;
 	    $convertMessageToGSM7 = false;
-        $message = "test message";
+        $message = "test sms";
 
         $response = $this->hostedSms->sendSimpleSms(
             $userEmail,
@@ -37,7 +37,7 @@ class SendSmsTest extends TestCase
     }
 
     /** @test */
-    public function test_Send_Sms_With_Invalid_User_Should_Throw_Exception()
+    public function test_Send_Sms_With_Invalid_User_Should_Throw_Exception(): void
     {
         $this->prepareData();
         $userEmail = 'invalid.user@dcs.pl';
