@@ -23,7 +23,7 @@ class HostedSmsWebService
         ];
         $response = $this->client->sendRequest('CheckPhones', $params);
 
-        return $response;
+        return new CheckPhonesResponse($response);
     }
 
     public function convertToGsm7($text)
@@ -33,7 +33,7 @@ class HostedSmsWebService
         ];
         $response = $this->client->sendRequest('ConvertToGsm7', $params);
 
-        return $response;
+        return new ConvertToGsm7Response($response);
     }
 
     public function getDeliveryReports($messageIds, $markAsRead = false)
@@ -68,7 +68,7 @@ class HostedSmsWebService
         ];
         $response = $this->client->sendRequest('GetInputSmses', $params);
 
-        return $response;
+        return new GetInputSmsesResponse($response);
     }
 
     public function getUnreadDeliveryReports()
@@ -76,7 +76,7 @@ class HostedSmsWebService
         $params = [];
         $response = $this->client->sendRequest('GetUnreadDeliveryReports', $params);
 
-        return $response;
+        return new GetUnreadDeliveryReportsResponse($response);
     }
 
     public function getUnreadInputSmses()
@@ -84,7 +84,7 @@ class HostedSmsWebService
         $params = [];
         $response = $this->client->sendRequest('GetUnreadInputSmses', $params);
 
-        return $response;
+        return new GetUnreadInputSmsesResponse($response);
     }
 
     public function getValidSenders()
@@ -92,7 +92,7 @@ class HostedSmsWebService
         $params = [];
         $response = $this->client->sendRequest('GetValidSenders', $params);
 
-        return $response;
+        return new GetValidSendersResponse($response);
     }
 
     /** 
@@ -150,7 +150,7 @@ class HostedSmsWebService
 
         $response = $this->client->sendRequest('SendSmses', $params);
 
-        return $response;
+        return new SendSmsesResponse($response);
     }
 
 }
