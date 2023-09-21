@@ -1,7 +1,7 @@
 {
-    "name": "simpleapi/php-client",
+    "name": "hostedsms/php-client",
     "version": "1.0.0",
-    "description": "SimpleSMS API PHP",
+    "description": "HostedSMS API PHP",
     "license": "Apache-2.0",
     "type": "library",
     "repositories": [

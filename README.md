@@ -18,7 +18,7 @@ PHP API Client for sending SMS messages via HostedSMS.pl SimpleApi
 		);
 ```
 ### Requirements
-php >= wstawić wersję  
+php >= 7.4  
 composer (https://getcomposer.org/)
 
 ### Install package with dependencies

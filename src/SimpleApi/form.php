@@ -17,10 +17,10 @@
 </html>
 
 <?php
-require 'Api.php';
+require 'HostedSmsSimpleApi.php';
 if (isset($_POST["submit"])) {
 
-	$hostedSms = new HostedSmsApi();
+	$hostedSms = new HostedSmsSimpleApi();
 	$userEmail = 'mikolaj.walachowski@dcs.pl';
 	$password = 'HsmsTestPassword4';
 	//$password = 'InvalidPassword';
@@ -36,7 +36,7 @@ if (isset($_POST["submit"])) {
 
 	try {
 
-		$response = $hostedSms->sendSimpleSms(
+		$response = $hostedSms->sendSms(
 			$userEmail,
 			$password,
 			$sender,
