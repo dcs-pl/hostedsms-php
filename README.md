@@ -23,4 +23,4 @@ composer (https://getcomposer.org/)
 
 ### Install package with dependencies
 
-`komenda dla composera by pobrać paczkę`
+`composer require simpleapi/php-client`
