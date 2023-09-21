@@ -8,6 +8,7 @@
 <body>
 
 	<form method="post">
+		<label for="submit">Send SMS</label>
 		<input type="submit" name="submit">
 	</form>
 
