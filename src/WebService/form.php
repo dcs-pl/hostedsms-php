@@ -16,10 +16,10 @@
 </html>
 
 <?php
-require 'Api.php';
+require 'HostedSmsWebService.php';
 if (isset($_POST["submit"])) {
 
-	$hostedSms = new HostedSmsApi();
+	$hostedSms = new HostedSmsWebService();
 	$userEmail = 'mikolaj.walachowski@dcs.pl';
 	$password = 'HsmsTestPassword4';
 	//$password = 'InvalidPassword';

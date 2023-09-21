@@ -1,5 +1,5 @@
 <?php
-class HostedSmsApi
+class HostedSmsWebService
 {
 
     private $apiWSDL = 'https://api.hostedsms.pl/WS/smssender.asmx?WSDL';
