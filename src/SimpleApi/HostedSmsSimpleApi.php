@@ -1,5 +1,5 @@
 <?php
-class HostedSmsApi {
+class HostedSmsSimpleApi {
     
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
     private $data;
@@ -19,7 +19,7 @@ class HostedSmsApi {
      * 
      * @throws Exception if failed request
     */
-    public function sendSimpleSms($userEmail, $password, $sender, $phone, $message,
+    public function sendSms($userEmail, $password, $sender, $phone, $message,
     $v = null, $convertMessageToGSM7 = null) {
 
         $this->setData($userEmail, $password, $sender, $phone, $message, $v, $convertMessageToGSM7);
