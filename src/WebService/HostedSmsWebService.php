@@ -1,6 +1,7 @@
 <?php
 require 'SoapRequestClient.php';
 /** https://api.hostedsms.pl/WS/smssender.asmx for documentation */
+require 'Responses.php';
 class HostedSmsWebService
 {
     private $client;
@@ -41,9 +42,15 @@ class HostedSmsWebService
             'MessageIds' => $messageIds,
             'MarkAsRead' => $markAsRead
         ];
-        $response = $this->client->sendRequest('GetDeliveryReports', $params);
         
-        return $response;
+        $response = $this->client->sendRequest('GetDeliveryReports', $params);
+
+        if(!$response->GetDeliveryReportsResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
+        
+        return new GetDeliveryReportsResponse($response);
     }
 
     /**
@@ -118,7 +125,12 @@ class HostedSmsWebService
 
         $response = $this->client->sendRequest('SendSms', $params);
 
-        return $response; 
+        if(!$response->SendSmsResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
+
+        return new SendSmsResponse($response);
     }
 
     public function sendSmses($phones, $message, $sender, $transactionId, 

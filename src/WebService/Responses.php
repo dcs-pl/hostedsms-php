@@ -53,8 +53,18 @@ class GetUnreadDeliveryReportsResponse extends Response
     {
         parent::__construct($response);
 
-        $arrayObject = new ArrayObject($response->DeliveryReports);
-        $this->deliveryReports = $arrayObject->getArrayCopy();
+        if(is_array($response->DeliveryReports->DeliveryReport))
+            $arrayObject = new ArrayObject($response->DeliveryReports->DeliveryReport);
+        else
+            $arrayObject = new ArrayObject([$response->DeliveryReports->DeliveryReport]);
+
+        $arrayWithDeliveryReport = new ArrayObject();
+        foreach($arrayObject as $obj)
+        {
+            $arrayWithDeliveryReport[] = new DeliveryReport($obj);
+        }
+                                                                                    
+        $this->deliveryReports = $arrayWithDeliveryReport->getArrayCopy();
     }
 }
 class GetDeliveryReportsResponse extends Response
@@ -64,30 +74,77 @@ class GetDeliveryReportsResponse extends Response
     {
         parent::__construct($response);
 
-        $arrayObject = new ArrayObject($response->DeliveryReports);
-        $this->deliveryReports = $arrayObject->getArrayCopy();
+        if(is_array($response->DeliveryReports->DeliveryReport))
+            $arrayObject = new ArrayObject($response->DeliveryReports->DeliveryReport);
+        else
+            $arrayObject = new ArrayObject([$response->DeliveryReports->DeliveryReport]);
+
+        $arrayWithDeliveryReport = new ArrayObject();
+        foreach($arrayObject as $obj)
+        {
+            $arrayWithDeliveryReport[] = new DeliveryReport($obj);
+        }
+
+        $this->deliveryReports = $arrayWithDeliveryReport->getArrayCopy();
+    }
+}
+class InputSms
+{
+    public $messageId;
+    public $phone;
+    public $recipient;
+    public $message;
+    public $receivedTime;
+
+    function __construct($inputSms)
+    {
+        $this->messageId = $inputSms->MessageId;
+        $this->phone = $inputSms->Phone;
+        $this->recipient = $inputSms->Recipient;
+        $this->message = $inputSms->Message;
+        $this->receivedTime = $inputSms->ReceivedTime;
     }
 }
 class GetInputSmsesResponse extends Response
 {
-    public $inputSms;
+    public $inputSmses;
     function __construct($response)
     {
         parent::__construct($response);
 
-        $arrayObject = new ArrayObject($response->InputSms);
-        $this->inputSms = $arrayObject->getArrayCopy();
+        if(is_array($response->InputSms->InputSms))
+            $arrayObject = new ArrayObject($response->InputSms->InputSms);
+        else
+            $arrayObject = new ArrayObject([$response->InputSms->InputSms]);
+
+        $arrayWithInputSmses = new ArrayObject();
+        foreach($arrayObject as $obj)
+        {
+            $arrayWithInputSmses[] = new InputSms($obj);
+        }
+
+        $this->inputSmses = $arrayWithInputSmses->getArrayCopy();
     }
 }
 class GetUnreadInputSmsesResponse extends Response
 {
-    public $inputSms;
+    public $inputSmses;
     function __construct($response)
     {
         parent::__construct($response);
                                                         
-        $arrayObject = new ArrayObject($response->InputSms);
-        $this->inputSms = $arrayObject->getArrayCopy();
+        if(is_array($response->InputSms->InputSms))
+            $arrayObject = new ArrayObject($response->InputSms->InputSms);
+        else
+            $arrayObject = new ArrayObject([$response->InputSms->InputSms]);
+
+        $arrayWithInputSmses = new ArrayObject();
+        foreach($arrayObject as $obj)
+        {
+            $arrayWithInputSmses[] = new InputSms($obj);
+        }
+
+        $this->inputSmses = $arrayWithInputSmses->getArrayCopy();
     }
 }
 class GetValidSendersResponse extends Response
