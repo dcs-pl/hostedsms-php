@@ -24,7 +24,7 @@ if (isset($_POST["submit"])) {
 	$password = 'HsmsTestPassword4';
 	//$password = 'InvalidPassword';
 	$sender = 'TestowySMS';
-	$phone = '48501954841';
+	$phone = '48693053151';
 	$convertMessageToGSM7 = false;
 
 	date_default_timezone_set('Europe/Warsaw');
