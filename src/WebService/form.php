@@ -19,9 +19,10 @@
 require 'HostedSmsWebService.php';
 if (isset($_POST["submit"])) {
 
-	$hostedSms = new HostedSmsWebService();
 	$userEmail = 'mikolaj.walachowski@dcs.pl';
 	$password = 'HsmsTestPassword4';
+	$hostedSms = new HostedSmsWebService($userEmail, $password);
+
 	//$password = 'InvalidPassword';
 	$sender = 'TestowySMS';
 	$phone = '48693053151';
@@ -30,19 +31,31 @@ if (isset($_POST["submit"])) {
 	date_default_timezone_set('Europe/Warsaw');
 
 	$currentDateTime = date('Y-m-d H:i:s');
-	$message = 'hejka naklejka ' . $currentDateTime;
+	$message = 'test - ' . $currentDateTime;
 	$transactionId = $sender . $phone . $message . $currentDateTime; 
 	try {
 
-		$response = $hostedSms->sendSms(
-			$userEmail,
-			$password,
-			$phone,
-			$message,
-			$sender,
-    		$transactionId
-		);
-		echo 'Response: ' . $response;
+		// // sendSms
+		// $response = $hostedSms->sendSms(
+		// 	$phone,
+		// 	$message,
+		// 	$sender,
+    	// 	$transactionId
+		// );
+		// echo 'Response: ' . $response->currentTime . $response->messageId;
+
+		// getDeliveryReports
+		$response = $hostedSms->getDeliveryReports(['1142ecb5-0e55-418e-a2df-e6ad836c4a19', '150dea2d-0d2e-4d40-ba68-ff39b5164db8']);
+		
+		echo $response->currentTime;
+		foreach($response->deliveryReports as $report)
+		{
+			echo '------ ' . $report->reportId;
+		}
+		echo 'Response: ' . $response->currentTime;
+
+
+
 	} catch (Exception $e) {
 		echo $e->getMessage();
 	}
