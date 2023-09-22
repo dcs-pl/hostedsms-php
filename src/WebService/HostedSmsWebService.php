@@ -1,7 +1,15 @@
 <?php
-require 'SoapRequestClient.php';
 /** https://api.hostedsms.pl/WS/smssender.asmx for documentation */
+
+namespace HostedSms\WebService;
+
+use HostedSms\WebService\SoapRequestClient\SoapRequestClient;
+
 require 'Responses.php';
+require 'SoapRequestClient.php';
+
+use Exception;
+
 class HostedSmsWebService
 {
     private $client;
