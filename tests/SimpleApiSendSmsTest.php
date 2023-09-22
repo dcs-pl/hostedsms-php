@@ -6,16 +6,15 @@ class SimpleApiSendSmsTest extends TestCase
 {
     private $hostedSms;
 
-    private function prepareData()
+    private function prepareData($userEmail, $password)
     {
-        $this->hostedSms = new HostedSmsSimpleApi();
+        $this->hostedSms = new HostedSmsSimpleApi($userEmail, $password);
     }
 
     public function providerTestData()
     {
         return [
-            //['mikolaj.walachowski@dcs.pl', 'HsmsTestPassword4', 'TestowySMS', '48501954841'],
-            [ getenv('HSMS_TEST_USERNAME'), getenv('HSMS_TEST_PASSWORD'), getenv('HSMS_TEST_SENDER'), getenv('HSMS_TEST_PHONE')]
+            [getenv('HSMS_TEST_USERNAME'), getenv('HSMS_TEST_PASSWORD'), getenv('HSMS_TEST_SENDER'), getenv('HSMS_TEST_PHONE')]
         ];
     }
 
@@ -25,18 +24,12 @@ class SimpleApiSendSmsTest extends TestCase
      */
     public function test_Send_Sms_Should_Be_Successfull($userEmail, $password, $sender, $phone): void
     {
-        $this->prepareData();
-        // $userEmail = 'mikolaj.walachowski@dcs.pl';
-	    // $password = 'HsmsTestPassword4';
-	    // $sender = 'TestowySMS';
-	    // $phone = '48693053151';
+        $this->prepareData($userEmail, $password);
         $message = "test sms";
 	    $v = null;
 	    $convertMessageToGSM7 = false;
 
         $response = $this->hostedSms->sendSms(
-            $userEmail,
-            $password,
             $sender,
             $phone,
             $message,
@@ -44,7 +37,6 @@ class SimpleApiSendSmsTest extends TestCase
             $convertMessageToGSM7
         );
 
-        echo $response;
         $this->assertNotEmpty($response);
         $this->assertNotNull($response);
     }
@@ -52,9 +44,7 @@ class SimpleApiSendSmsTest extends TestCase
     /** @test */
     public function test_Send_Sms_With_Invalid_User_Should_Throw_Exception(): void
     {
-        $this->prepareData();
-        $userEmail = 'invalid.user@dcs.pl';
-	    $password = 'invalidpassword';
+        $this->prepareData('invalid.user@dcs.pl', 'invalidpassword');
 	    $sender = 'invalidsender';
 	    $phone = '000000000';
 	    $v = null;
@@ -64,8 +54,6 @@ class SimpleApiSendSmsTest extends TestCase
         $this->expectException(Exception::class);
 
         $response = $this->hostedSms->sendSms(
-            $userEmail,
-            $password,
             $sender,
             $phone,
             $message,
