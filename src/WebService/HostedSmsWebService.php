@@ -17,7 +17,7 @@ class HostedSmsWebService
     }
 
     /**
-     * Check if phone numbers are correct
+     * Check if phone numbers are valid
      *
      * @param string[] $phones in '48xxxxxxxxx' format
      * 
