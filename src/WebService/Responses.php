@@ -61,7 +61,15 @@ class DeliveryReport
     public $phone;
     /** @var string */
     public $messageId;
-    /** @var int */
+    /** 
+    * Message status
+    * -3 - message declined by operator
+    * -2 - message outdated
+    * -1 - message undelivered
+    *  0 - undefined state (shouldn't ever occur)
+    *  1 - message delivered  
+    * @var int 
+    */
     public $status;
     /** @var string */
     public $deliveryTime;
@@ -207,22 +215,22 @@ class CheckPhonesResponse extends Response
     {
         parent::__construct($response);
                                           
-        if(isset($$response->ValidPhones->string))
+        if(isset($response->ValidPhones->string))
             $this->validPhones = parent::createArray($response->ValidPhones->string);
         else
             $this->validPhones = [];
 
-        if(isset($$response->InvalidPhones->string))
+        if(isset($response->InvalidPhones->string))
             $this->invalidPhones = parent::createArray($response->InvalidPhones->string);
         else
             $this->invalidPhones = [];
 
-        if(isset($$response->Duplicates->string))
+        if(isset($response->Duplicates->string))
             $this->duplicates = parent::createArray($response->Duplicates->string);
         else
             $this->duplicates = [];
 
-        if(isset($$response->BlockedPhones->string))
+        if(isset($response->BlockedPhones->string))
             $this->blockedPhones = parent::createArray($response->BlockedPhones->string);
         else
             $this->blockedPhones = [];
