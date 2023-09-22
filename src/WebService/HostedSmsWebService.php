@@ -23,6 +23,11 @@ class HostedSmsWebService
         ];
         $response = $this->client->sendRequest('CheckPhones', $params);
 
+        if(!$response->CheckPhonesResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
+
         return new CheckPhonesResponse($response);
     }
 
@@ -32,6 +37,11 @@ class HostedSmsWebService
             'Text' => $text
         ];
         $response = $this->client->sendRequest('ConvertToGsm7', $params);
+
+        if(!$response->ConvertToGsm7Result)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
 
         return new ConvertToGsm7Response($response);
     }
@@ -68,6 +78,11 @@ class HostedSmsWebService
         ];
         $response = $this->client->sendRequest('GetInputSmses', $params);
 
+        if(!$response->GetInputSmsesResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
+
         return new GetInputSmsesResponse($response);
     }
 
@@ -75,6 +90,11 @@ class HostedSmsWebService
     {
         $params = [];
         $response = $this->client->sendRequest('GetUnreadDeliveryReports', $params);
+
+        if(!$response->GetUnreadDeliveryReportsResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
 
         return new GetUnreadDeliveryReportsResponse($response);
     }
@@ -84,6 +104,11 @@ class HostedSmsWebService
         $params = [];
         $response = $this->client->sendRequest('GetUnreadInputSmses', $params);
 
+        if(!$response->GetUnreadInputSmsesResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
+
         return new GetUnreadInputSmsesResponse($response);
     }
 
@@ -91,6 +116,11 @@ class HostedSmsWebService
     {
         $params = [];
         $response = $this->client->sendRequest('GetValidSenders', $params);
+
+        if(!$response->GetValidSendersResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
 
         return new GetValidSendersResponse($response);
     }
@@ -149,6 +179,11 @@ class HostedSmsWebService
         ];
 
         $response = $this->client->sendRequest('SendSmses', $params);
+
+        if(!$response->SendSmsesResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
 
         return new SendSmsesResponse($response);
     }
