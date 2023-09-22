@@ -21,6 +21,7 @@ class InvalidCredentialsTest extends TestCase
 	    $transactionId = $sender . $phone . $message . $currentDateTime; 
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->sendSms($phone, $message, $sender, $transactionId);
     }
@@ -35,6 +36,7 @@ class InvalidCredentialsTest extends TestCase
 	    $transactionId = $sender . $message . $currentDateTime; 
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->sendSmses($phones, $message, $sender, $transactionId);
     }
@@ -45,6 +47,7 @@ class InvalidCredentialsTest extends TestCase
         $phones = ['48000000000', '48111111111'];
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->checkPhones($phones);
     }
@@ -55,6 +58,7 @@ class InvalidCredentialsTest extends TestCase
         $text = 'text';
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->convertToGsm7($text);
     }
@@ -62,9 +66,10 @@ class InvalidCredentialsTest extends TestCase
     public function test_GetDeliveryReports_Should_Be_Invalid_Credentials()
     {
         $this->prepareData();
-        $messageIds = ['123-3123123-123sdfs-13', '1231-asdas-123123-asda'];
+        $messageIds = ['750dea2d-0d2e-4d40-ba68-ff39b5164db8', '750dea2d-0d2e-4d40-ba68-ff39b5164db8'];
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->getDeliveryReports($messageIds);
     }
@@ -72,13 +77,13 @@ class InvalidCredentialsTest extends TestCase
     public function test_GetInputSmses_Should_Be_Invalid_Credentials()
     {
         $this->prepareData();
-        $currentDateTime = date('Y-m-d H:i:s');
-        $from = $currentDateTime;
-        $to = $currentDateTime;
+        $from = null;
+        $to = null;
         $recipient = 'test';
         $markAsRead = false;
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->getInputSmses($from, $to, $recipient, $markAsRead);
     }
@@ -88,6 +93,7 @@ class InvalidCredentialsTest extends TestCase
         $this->prepareData();
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->getUnreadDeliveryReports();
     }
@@ -97,6 +103,7 @@ class InvalidCredentialsTest extends TestCase
         $this->prepareData();
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->getUnreadInputSmses();
     }
@@ -106,6 +113,7 @@ class InvalidCredentialsTest extends TestCase
         $this->prepareData();
 
         $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid Credentials');
 
         $response = $this->hostedSms->getValidSenders();
     }
