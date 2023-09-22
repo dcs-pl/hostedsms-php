@@ -1,7 +1,7 @@
 HostedSMS API
 ================
 
-PHP API Client HostedSMS.pl WEBSERWIS2SMS API and SimpleAPI
+PHP API Client HostedSMS.pl SimpleAPI and WEBSERWIS2SMS API
 
 **[HostedSMS.pl API documentation](https://hostedsms.pl/pl/api-sms/opis-techniczny-api/)**
 
@@ -16,11 +16,12 @@ composer (https://getcomposer.org/)
 
 #### Sending SMS
 ```php
-    $simpleApi = new HostedSmsSimpleApi();
+    require 'vendor/autoload.php';
+    use HostedSms\SimpleApi\HostedSmsSimpleApi;
+    
+    $simpleApi = new HostedSmsSimpleApi($userEmail, $password);
 
     $response = $simpleApi->sendSms(
-			$userEmail,
-			$password,
 			$sender,
 			$phone,
 			$message
@@ -31,6 +32,9 @@ composer (https://getcomposer.org/)
 
 #### Create client
 ```php
+require 'vendor/autoload.php';
+use HostedSms\WebService\HostedSmsWebService;
+
 $client = new HostedSmsWebService($userEmail, $password);
 ```
 
