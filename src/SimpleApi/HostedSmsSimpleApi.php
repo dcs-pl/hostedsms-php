@@ -1,15 +1,17 @@
 <?php
+
 namespace HostedSms\SimpleApi;
 
 use Exception;
 
-class HostedSmsSimpleApi {
-    
+class HostedSmsSimpleApi
+{
+
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
     private $data;
     private $userEmail;
     private $password;
-    
+
     /** 
      * Create client for API with credentials
      * 
@@ -33,40 +35,46 @@ class HostedSmsSimpleApi {
      * @return string returns messageId if successful request
      * 
      * @throws Exception if failed request
-    */
-    public function sendSms($sender, $phone, $message,
-    $v = null, $convertMessageToGSM7 = null) {
+     */
+    public function sendSms(
+        $sender,
+        $phone,
+        $message,
+        $v = null,
+        $convertMessageToGSM7 = null
+    ) {
 
         $this->setData($this->userEmail, $this->password, $sender, $phone, $message, $v, $convertMessageToGSM7);
-    
+
         return $this->sendRequest();
     }
 
     private function sendRequest()
     {
         $jsonData = json_encode($this->data);
-        
+
         $ch = curl_init($this->simpleApiUrl);
-        
-        curl_setopt($ch, CURLOPT_POST, 1);  // to do a regular HTTP POST
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);  // set body of the request
-        
+
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+
         $headers = [
+            
             'Content-Type: application/json; charset=UTF-8',
         ];
-        
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);  // to set HTTP headers
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // to return the transfer as a string of the return value of {@see curl_exec()}
-        
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
         $jsonResponse = curl_exec($ch);
 
         if (curl_errno($ch))
             throw new Exception('Call error' . curl_error($ch), curl_errno($ch));
-        
+
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($responseCode != 200)
             throw new Exception('Request failed: ' . $responseCode . ' Error');
-            
+
         $response = json_decode($jsonResponse);
 
         if (isset($response->ErrorMessage))
@@ -77,9 +85,15 @@ class HostedSmsSimpleApi {
         return $response->MessageId;
     }
 
-    private function setData($userEmail, $password, $sender, $phone, $message,
-    $v, $convertMessageToGSM7)
-    {
+    private function setData(
+        $userEmail,
+        $password,
+        $sender,
+        $phone,
+        $message,
+        $v,
+        $convertMessageToGSM7
+    ) {
         $this->data = [
             'UserEmail' => $userEmail,
             'Password' => $password,
@@ -88,6 +102,6 @@ class HostedSmsSimpleApi {
             'Message' => $message,
             'v' => $v,
             'convertMessageToGSM7' => $convertMessageToGSM7
-        ];   
+        ];
     }
 }

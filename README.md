@@ -5,11 +5,11 @@ PHP API Client HostedSMS.pl SimpleAPI and WEBSERWIS2SMS API
 
 **[HostedSMS.pl API documentation](https://hostedsms.pl/pl/api-sms/opis-techniczny-api/)**
 
-#### Requirements
+## Requirements
 php >= 7.4  
 composer (https://getcomposer.org/)
 
-#### Install package with dependencies
+## Install package with dependencies
 `composer require simpleapi/php-client`
 
 ## SimpleApi

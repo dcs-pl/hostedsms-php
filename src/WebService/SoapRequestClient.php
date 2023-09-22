@@ -1,4 +1,5 @@
 <?php
+
 namespace HostedSms\WebService\SoapRequestClient;
 
 use SoapClient;
@@ -10,7 +11,8 @@ class SoapRequestClient
     private $client;
     private $credentials;
 
-    public function __construct($userEmail, $password) {
+    public function __construct($userEmail, $password)
+    {
         $this->credentials = [
             'UserEmail' => $userEmail,
             'Password' => $password
@@ -22,11 +24,11 @@ class SoapRequestClient
         ]);
     }
 
-    public function sendRequest($apiCall, $params) 
+    public function sendRequest($apiCall, $params)
     {
         $args = array_merge($this->credentials, $params);
         $response = $this->client->__soapCall($apiCall, [$args]);
-        
+
         return $response;
     }
 }

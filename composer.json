@@ -6,18 +6,17 @@
     "type": "library",
     "repositories": [
         {
-          "type": "git",
-          "url": "https://bitbucket.dcs.pl/scm/hsms/simpleapi-php.git"
+            "type": "git",
+            "url": "https://bitbucket.dcs.pl/scm/hsms/simpleapi-php.git"
         }
     ],
     "require-dev": {
         "phpunit/phpunit": "^9.6"
     },
-    "autoload" : {
+    "autoload": {
         "psr-4": {
             "HostedSms\\WebService\\": "src/WebService/",
-            "HostedSms\\SimpleApi\\" : "src/SimpleApi/"
+            "HostedSms\\SimpleApi\\": "src/SimpleApi/"
         }
-
     }
 }
