@@ -1,5 +1,14 @@
 <?php
 // See WebService API documentation https://api.hostedsms.pl/WS/smssender.asmx
+function createArray($tab)
+{
+    if(is_array($tab))
+        $arrayObject = new ArrayObject($tab);
+    else
+        $arrayObject = new ArrayObject([$tab]);
+
+    return $arrayObject;
+}
 class Response
 {
     /** @var string */
@@ -31,12 +40,12 @@ class SendSmsesResponse extends Response
     {
         parent::__construct($response);
 
-        if(is_array($response->MessageIds))
-            $arrayObject = new ArrayObject($response->MessageIds);
-        else
-            $arrayObject = new ArrayObject([$response->MessageIds]);
+        $arrayObject = createArray($response->MessageIds);
 
-        $this->messageIds = $arrayObject->getArrayCopy();
+        foreach($arrayObject as $obj)
+        {
+            $this->messageIds[] = $obj->guid;
+        }
     }
 }
 class DeliveryReport
@@ -69,18 +78,12 @@ class GetUnreadDeliveryReportsResponse extends Response
     {
         parent::__construct($response);
 
-        if(is_array($response->DeliveryReports->DeliveryReport))
-            $arrayObject = new ArrayObject($response->DeliveryReports->DeliveryReport);
-        else
-            $arrayObject = new ArrayObject([$response->DeliveryReports->DeliveryReport]);
+        $arrayObject = createArray($response->DeliveryReports->DeliveryReport);
 
-        $arrayWithDeliveryReport = new ArrayObject();
         foreach($arrayObject as $obj)
         {
-            $arrayWithDeliveryReport[] = new DeliveryReport($obj);
+            $this->deliveryReports[] = new DeliveryReport($obj);
         }
-                                                                                    
-        $this->deliveryReports = $arrayWithDeliveryReport->getArrayCopy();
     }
 }
 class GetDeliveryReportsResponse extends Response
@@ -91,18 +94,12 @@ class GetDeliveryReportsResponse extends Response
     {
         parent::__construct($response);
 
-        if(is_array($response->DeliveryReports->DeliveryReport))
-            $arrayObject = new ArrayObject($response->DeliveryReports->DeliveryReport);
-        else
-            $arrayObject = new ArrayObject([$response->DeliveryReports->DeliveryReport]);
+        $arrayObject = createArray($response->DeliveryReports->DeliveryReport);
 
-        $arrayWithDeliveryReport = new ArrayObject();
         foreach($arrayObject as $obj)
         {
-            $arrayWithDeliveryReport[] = new DeliveryReport($obj);
+            $this->deliveryReports[] = new DeliveryReport($obj);
         }
-
-        $this->deliveryReports = $arrayWithDeliveryReport->getArrayCopy();
     }
 }
 class InputSms
@@ -135,18 +132,12 @@ class GetInputSmsesResponse extends Response
     {
         parent::__construct($response);
 
-        if(is_array($response->InputSms->InputSms))
-            $arrayObject = new ArrayObject($response->InputSms->InputSms);
-        else
-            $arrayObject = new ArrayObject([$response->InputSms->InputSms]);
-
-        $arrayWithInputSmses = new ArrayObject();
+        $arrayObject = createArray($response->InputSms->InputSms);
+        
         foreach($arrayObject as $obj)
         {
-            $arrayWithInputSmses[] = new InputSms($obj);
+            $this->inputSmses[] = new InputSms($obj);
         }
-
-        $this->inputSmses = $arrayWithInputSmses->getArrayCopy();
     }
 }
 class GetUnreadInputSmsesResponse extends Response
@@ -156,19 +147,13 @@ class GetUnreadInputSmsesResponse extends Response
     function __construct($response)
     {
         parent::__construct($response);
-                                                        
-        if(is_array($response->InputSms->InputSms))
-            $arrayObject = new ArrayObject($response->InputSms->InputSms);
-        else
-            $arrayObject = new ArrayObject([$response->InputSms->InputSms]);
+                                                    
+        $arrayObject = createArray($response->InputSms->InputSms);
 
-        $arrayWithInputSmses = new ArrayObject();
         foreach($arrayObject as $obj)
         {
-            $arrayWithInputSmses[] = new InputSms($obj);
+            $this->inputSmses[] = new InputSms($obj);
         }
-
-        $this->inputSmses = $arrayWithInputSmses->getArrayCopy();
     }
 }
 class GetValidSendersResponse extends Response
@@ -180,15 +165,12 @@ class GetValidSendersResponse extends Response
     {
         parent::__construct($response);
                                                         
-        $arrayObject = new ArrayObject($response->Senders);
-        $this->senders = $arrayObject->getArrayCopy();
+        $arrayObject = createArray($response->Senders);
 
-        if(is_array($response->Senders))
-            $arrayObject = new ArrayObject($response->Senders);
-        else
-            $arrayObject = new ArrayObject([$response->Senders]);
-
-        $this->senders = $arrayObject->getArrayCopy();
+        foreach($arrayObject as $obj)
+        {
+            $this->senders[] = $obj->string;
+        }
     }
 }
 class CheckPhonesResponse extends Response
@@ -205,18 +187,30 @@ class CheckPhonesResponse extends Response
     function __construct($response)
     {
         parent::__construct($response);
-                                                        
-        $arrayObject1 = new ArrayObject($response->ValidPhones);
-        $this->validPhones = $arrayObject1->getArrayCopy();
+                                          
+        $arrayObject1 = createArray($response->ValidPhones);
+        foreach($arrayObject1 as $obj)
+        {
+            $this->validPhones[] = $obj->string;
+        }
 
-        $arrayObject1 = new ArrayObject($response->InvalidPhones);
-        $this->invalidPhones = $arrayObject1->getArrayCopy();
+        $arrayObject2 = createArray($response->InvalidPhones);
+        foreach($arrayObject2 as $obj)
+        {
+            $this->invalidPhones[] = $obj->string;
+        }
 
-        $arrayObject1 = new ArrayObject($response->Duplicates);
-        $this->duplicates = $arrayObject1->getArrayCopy();
+        $arrayObject3 = createArray($response->Duplicates);
+        foreach($arrayObject3 as $obj)
+        {
+            $this->duplicates[] = $obj->string;
+        }
 
-        $arrayObject1 = new ArrayObject($response->BlockedPhones);
-        $this->blockedPhones = $arrayObject1->getArrayCopy();
+        $arrayObject4 = createArray($response->BlockedPhones);
+        foreach($arrayObject4 as $obj)
+        {
+            $this->blockedPhones[] = $obj->string;
+        }
     }
 }
 class ConvertToGsm7Response extends Response
