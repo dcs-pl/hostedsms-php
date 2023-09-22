@@ -1,6 +1,8 @@
 <?php
+// See WebService API documentation https://api.hostedsms.pl/WS/smssender.asmx
 class Response
 {
+    /** @var string */
     public $currentTime;
 
     function __construct($response)
@@ -11,6 +13,7 @@ class Response
 
 class SendSmsResponse extends Response
 {
+    /** @var string */
     public $messageId;
 
     function __construct($response)
@@ -21,6 +24,7 @@ class SendSmsResponse extends Response
 }
 class SendSmsesResponse extends Response
 {
+    /** @var string[] */
     public $messageIds;
 
     function __construct($response)
@@ -37,10 +41,15 @@ class SendSmsesResponse extends Response
 }
 class DeliveryReport
 {
+    /** @var string */
     public $reportId;
+    /** @var string */
     public $phone;
+    /** @var string */
     public $messageId;
+    /** @var integer */
     public $status;
+    /** @var string */
     public $deliveryTime;
 
     function __construct($report)
@@ -54,6 +63,7 @@ class DeliveryReport
 }
 class GetUnreadDeliveryReportsResponse extends Response
 {
+    /** @var DeliveryReport[] */
     public $deliveryReports;
     function __construct($response)
     {
@@ -75,6 +85,7 @@ class GetUnreadDeliveryReportsResponse extends Response
 }
 class GetDeliveryReportsResponse extends Response
 {
+    /** @var DeliveryReport[] */
     public $deliveryReports;
     function __construct($response)
     {
@@ -96,10 +107,15 @@ class GetDeliveryReportsResponse extends Response
 }
 class InputSms
 {
+    /** @var string */
     public $messageId;
+    /** @var string */
     public $phone;
+    /** @var string */
     public $recipient;
+    /** @var string */
     public $message;
+    /** @var string */
     public $receivedTime;
 
     function __construct($inputSms)
@@ -113,6 +129,7 @@ class InputSms
 }
 class GetInputSmsesResponse extends Response
 {
+    /** @var InputSms[] */
     public $inputSmses;
     function __construct($response)
     {
@@ -134,6 +151,7 @@ class GetInputSmsesResponse extends Response
 }
 class GetUnreadInputSmsesResponse extends Response
 {
+    /** @var InputSms[] */
     public $inputSmses;
     function __construct($response)
     {
@@ -155,6 +173,7 @@ class GetUnreadInputSmsesResponse extends Response
 }
 class GetValidSendersResponse extends Response
 {
+    /** @var string[] */
     public $senders;
 
     function __construct($response)
@@ -174,9 +193,13 @@ class GetValidSendersResponse extends Response
 }
 class CheckPhonesResponse extends Response
 {
+    /** @var string[] */
     public $validPhones;
+    /** @var string[] */
     public $invalidPhones;
+    /** @var string[] */
     public $duplicates;
+    /** @var string[] */
     public $blockedPhones;
 
     function __construct($response)
@@ -198,6 +221,7 @@ class CheckPhonesResponse extends Response
 }
 class ConvertToGsm7Response extends Response
 {
+    /** @var string */
     public $gsm7Text;
 
     function __construct($response)
