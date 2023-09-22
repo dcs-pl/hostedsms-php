@@ -5,15 +5,6 @@ namespace HostedSms\WebService;
 
 use ArrayObject;
 
-function createArray($tab)
-{
-    if(is_array($tab))
-        $arrayObject = new ArrayObject($tab);
-    else
-        $arrayObject = new ArrayObject([$tab]);
-
-    return $arrayObject;
-}
 class Response
 {
     /** @var string */
@@ -23,6 +14,17 @@ class Response
     {
         $this->currentTime = $response->CurrentTime;
     }
+    protected function createArray($tab)
+{
+    if(is_null($tab))
+        $arrayObject = new ArrayObject();
+    else if(is_array($tab))
+        $arrayObject = new ArrayObject($tab);
+    else
+        $arrayObject = new ArrayObject([$tab]);
+
+    return $arrayObject;
+}
 }
 
 class SendSmsResponse extends Response
@@ -45,7 +47,7 @@ class SendSmsesResponse extends Response
     {
         parent::__construct($response);
 
-        $arrayObject = createArray($response->MessageIds->guid);
+        $arrayObject = parent::createArray($response->MessageIds->guid);
 
         foreach($arrayObject as $obj)
         {
@@ -83,7 +85,7 @@ class GetUnreadDeliveryReportsResponse extends Response
     {
         parent::__construct($response);
 
-        $arrayObject = createArray($response->DeliveryReports->DeliveryReport);
+        $arrayObject = parent::createArray($response->DeliveryReports->DeliveryReport);
 
         foreach($arrayObject as $obj)
         {
@@ -99,7 +101,7 @@ class GetDeliveryReportsResponse extends Response
     {
         parent::__construct($response);
 
-        $arrayObject = createArray($response->DeliveryReports->DeliveryReport);
+        $arrayObject = parent::createArray($response->DeliveryReports->DeliveryReport);
 
         foreach($arrayObject as $obj)
         {
@@ -137,7 +139,7 @@ class GetInputSmsesResponse extends Response
     {
         parent::__construct($response);
 
-        $arrayObject = createArray($response->InputSms->InputSms);
+        $arrayObject = parent::createArray($response->InputSms->InputSms);
         
         foreach($arrayObject as $obj)
         {
@@ -153,7 +155,7 @@ class GetUnreadInputSmsesResponse extends Response
     {
         parent::__construct($response);
                                                     
-        $arrayObject = createArray($response->InputSms->InputSms);
+        $arrayObject = parent::createArray($response->InputSms->InputSms);
 
         foreach($arrayObject as $obj)
         {
@@ -170,7 +172,7 @@ class GetValidSendersResponse extends Response
     {
         parent::__construct($response);
                                                         
-        $arrayObject = createArray($response->Senders->string);
+        $arrayObject = parent::createArray($response->Senders->string);
 
         foreach($arrayObject as $obj)
         {
@@ -193,25 +195,25 @@ class CheckPhonesResponse extends Response
     {
         parent::__construct($response);
                                           
-        $arrayObject1 = createArray($response->ValidPhones->string);
+        $arrayObject1 = parent::createArray($response->ValidPhones->string);
         foreach($arrayObject1 as $obj)
         {
             $this->validPhones[] = $obj;
         }
 
-        $arrayObject2 = createArray($response->InvalidPhones->string);
+        $arrayObject2 = parent::createArray($response->InvalidPhones->string);
         foreach($arrayObject2 as $obj)
         {
             $this->invalidPhones[] = $obj;
         }
 
-        $arrayObject3 = createArray($response->Duplicates->string);
+        $arrayObject3 = parent::createArray($response->Duplicates->string);
         foreach($arrayObject3 as $obj)
         {
             $this->duplicates[] = $obj;
         }
 
-        $arrayObject4 = createArray($response->BlockedPhones->string);
+        $arrayObject4 = parent::createArray($response->BlockedPhones->string);
         foreach($arrayObject4 as $obj)
         {
             $this->blockedPhones[] = $obj;
