@@ -1,4 +1,8 @@
 <?php
+namespace HostedSms\WebService\SoapRequestClient;
+
+use SoapClient;
+
 class SoapRequestClient
 {
     private $apiWSDL = 'https://api.hostedsms.pl/WS/smssender.asmx?WSDL';

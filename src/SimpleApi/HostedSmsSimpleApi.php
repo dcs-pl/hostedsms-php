@@ -1,4 +1,8 @@
 <?php
+namespace HostedSms\SimpleApi;
+
+use Exception;
+
 class HostedSmsSimpleApi {
     
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';

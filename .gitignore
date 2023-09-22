@@ -3,4 +3,4 @@
 /vendor/
 
 # Ignore endpoint testing file
-src/Webservice/form.php
+**/form.php

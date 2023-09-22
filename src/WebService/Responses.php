@@ -1,4 +1,10 @@
 <?php
+/** https://api.hostedsms.pl/WS/smssender.asmx for documentation */
+
+namespace HostedSms\WebService;
+
+use ArrayObject;
+
 function createArray($tab)
 {
     if(is_array($tab))
