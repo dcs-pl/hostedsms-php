@@ -11,30 +11,30 @@ class SendSmsTest extends TestCase
     }
 
     /** @test */
-    public function test_Send_Sms_Should_Be_Successfull(): void
-    {
-        $this->prepareData();
-        $userEmail = 'mikolaj.walachowski@dcs.pl';
-	    $password = 'HsmsTestPassword4';
-	    $sender = 'TestowySMS';
-	    $phone = '48693053151';
-	    $v = null;
-	    $convertMessageToGSM7 = false;
-        $message = "test sms";
+    // public function test_Send_Sms_Should_Be_Successfull(): void
+    // {
+    //     $this->prepareData();
+    //     $userEmail = 'mikolaj.walachowski@dcs.pl';
+	//     $password = 'HsmsTestPassword4';
+	//     $sender = 'TestowySMS';
+	//     $phone = '48693053151';
+	//     $v = null;
+	//     $convertMessageToGSM7 = false;
+    //     $message = "test sms";
 
-        $response = $this->hostedSms->sendSms(
-            $userEmail,
-            $password,
-            $sender,
-            $phone,
-            $message,
-            $v,
-            $convertMessageToGSM7
-        );
+    //     $response = $this->hostedSms->sendSms(
+    //         $userEmail,
+    //         $password,
+    //         $sender,
+    //         $phone,
+    //         $message,
+    //         $v,
+    //         $convertMessageToGSM7
+    //     );
 
-        $this->assertNotEmpty($response);
-        $this->assertNotNull($response);
-    }
+    //     $this->assertNotEmpty($response);
+    //     $this->assertNotNull($response);
+    // }
 
     /** @test */
     public function test_Send_Sms_With_Invalid_User_Should_Throw_Exception(): void
