@@ -6,17 +6,17 @@ class SendSmsTest extends TestCase
 {
     private $hostedSms;
 
-    private function prepareData()
+    private function prepareData($userEmail, $password)
     {
-        $this->hostedSms = new HostedSmsSimpleApi();
+        $this->hostedSms = new HostedSmsSimpleApi($userEmail, $password);
     }
 
     /** @test */
     // public function test_Send_Sms_Should_Be_Successfull(): void
     // {
-    //     $this->prepareData();
     //     $userEmail = 'mikolaj.walachowski@dcs.pl';
 	//     $password = 'HsmsTestPassword4';
+    //     $this->prepareData($userEmail, $password);
 	//     $sender = 'TestowySMS';
 	//     $phone = '48693053151';
 	//     $v = null;
@@ -24,8 +24,6 @@ class SendSmsTest extends TestCase
     //     $message = "test sms";
 
     //     $response = $this->hostedSms->sendSms(
-    //         $userEmail,
-    //         $password,
     //         $sender,
     //         $phone,
     //         $message,
@@ -40,9 +38,9 @@ class SendSmsTest extends TestCase
     /** @test */
     public function test_Send_Sms_With_Invalid_User_Should_Throw_Exception(): void
     {
-        $this->prepareData();
         $userEmail = 'invalid.user@dcs.pl';
 	    $password = 'invalidpassword';
+        $this->prepareData($userEmail, $password);
 	    $sender = 'invalidsender';
 	    $phone = '000000000';
 	    $v = null;
@@ -52,8 +50,6 @@ class SendSmsTest extends TestCase
         $this->expectException(Exception::class);
 
         $response = $this->hostedSms->sendSms(
-            $userEmail,
-            $password,
             $sender,
             $phone,
             $message,
