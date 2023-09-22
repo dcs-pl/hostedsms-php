@@ -92,6 +92,11 @@ class HostedSmsWebService
         $params = [];
         $response = $this->client->sendRequest('GetValidSenders', $params);
 
+        if(!$response->GetValidSendersResult)
+        {
+            throw new Exception($response->ErrorMessage);
+        }
+
         return new GetValidSendersResponse($response);
     }
 
