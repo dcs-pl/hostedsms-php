@@ -26,7 +26,13 @@ class SendSmsesResponse extends Response
     function __construct($response)
     {
         parent::__construct($response);
-        $this->messageIds = $response->MessageIds;
+
+        if(is_array($response->MessageIds))
+            $arrayObject = new ArrayObject($response->MessageIds);
+        else
+            $arrayObject = new ArrayObject([$response->MessageIds]);
+
+        $this->messageIds = $arrayObject->getArrayCopy();
     }
 }
 class DeliveryReport
@@ -156,6 +162,13 @@ class GetValidSendersResponse extends Response
         parent::__construct($response);
                                                         
         $arrayObject = new ArrayObject($response->Senders);
+        $this->senders = $arrayObject->getArrayCopy();
+
+        if(is_array($response->Senders))
+            $arrayObject = new ArrayObject($response->Senders);
+        else
+            $arrayObject = new ArrayObject([$response->Senders]);
+
         $this->senders = $arrayObject->getArrayCopy();
     }
 }
