@@ -13,6 +13,7 @@ use Exception;
 class HostedSmsWebService
 {
     private $client;
+    
     /** 
      * Create client for API with credentials
      * 
