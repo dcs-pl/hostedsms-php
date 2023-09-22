@@ -10,6 +10,7 @@ function createArray($tab)
 }
 class Response
 {
+    /** @param string */
     public $currentTime;
 
     function __construct($response)
@@ -20,6 +21,7 @@ class Response
 
 class SendSmsResponse extends Response
 {
+    /** @param string */
     public $messageId;
 
     function __construct($response)
@@ -30,6 +32,7 @@ class SendSmsResponse extends Response
 }
 class SendSmsesResponse extends Response
 {
+    /** @param string[] */
     public $messageIds;
 
     function __construct($response)
@@ -46,10 +49,15 @@ class SendSmsesResponse extends Response
 }
 class DeliveryReport
 {
+    /** @param string */
     public $reportId;
+    /** @param string */
     public $phone;
+    /** @param string */
     public $messageId;
+    /** @param int */
     public $status;
+    /** @param string */
     public $deliveryTime;
 
     function __construct($report)
@@ -63,6 +71,7 @@ class DeliveryReport
 }
 class GetUnreadDeliveryReportsResponse extends Response
 {
+    /** @param string[] */
     public $deliveryReports;
     function __construct($response)
     {
@@ -78,6 +87,7 @@ class GetUnreadDeliveryReportsResponse extends Response
 }
 class GetDeliveryReportsResponse extends Response
 {
+    /** @param string[] */
     public $deliveryReports;
     function __construct($response)
     {
@@ -93,10 +103,15 @@ class GetDeliveryReportsResponse extends Response
 }
 class InputSms
 {
+    /** @param string */
     public $messageId;
+    /** @param string */
     public $phone;
+    /** @param string */
     public $recipient;
+    /** @param string */
     public $message;
+    /** @param string */
     public $receivedTime;
 
     function __construct($inputSms)
@@ -110,6 +125,7 @@ class InputSms
 }
 class GetInputSmsesResponse extends Response
 {
+    /** @param string[] */
     public $inputSmses;
     function __construct($response)
     {
@@ -125,6 +141,7 @@ class GetInputSmsesResponse extends Response
 }
 class GetUnreadInputSmsesResponse extends Response
 {
+    /** @param string[] */
     public $inputSmses;
     function __construct($response)
     {
@@ -140,6 +157,7 @@ class GetUnreadInputSmsesResponse extends Response
 }
 class GetValidSendersResponse extends Response
 {
+    /** @param string[] */
     public $senders;
 
     function __construct($response)
@@ -156,9 +174,13 @@ class GetValidSendersResponse extends Response
 }
 class CheckPhonesResponse extends Response
 {
+    /** @param string[] */
     public $validPhones;
+    /** @param string[] */
     public $invalidPhones;
+    /** @param string[] */
     public $duplicates;
+    /** @param string[] */
     public $blockedPhones;
 
     function __construct($response)
@@ -192,6 +214,7 @@ class CheckPhonesResponse extends Response
 }
 class ConvertToGsm7Response extends Response
 {
+    /** @param string */
     public $gsm7Text;
 
     function __construct($response)
