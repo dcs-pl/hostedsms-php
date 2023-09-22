@@ -1,5 +1,4 @@
 <?php
-// See WebService API documentation https://api.hostedsms.pl/WS/smssender.asmx
 function createArray($tab)
 {
     if(is_array($tab))
@@ -11,7 +10,6 @@ function createArray($tab)
 }
 class Response
 {
-    /** @var string */
     public $currentTime;
 
     function __construct($response)
@@ -22,7 +20,6 @@ class Response
 
 class SendSmsResponse extends Response
 {
-    /** @var string */
     public $messageId;
 
     function __construct($response)
@@ -33,32 +30,26 @@ class SendSmsResponse extends Response
 }
 class SendSmsesResponse extends Response
 {
-    /** @var string[] */
     public $messageIds;
 
     function __construct($response)
     {
         parent::__construct($response);
 
-        $arrayObject = createArray($response->MessageIds);
+        $arrayObject = createArray($response->MessageIds->guid);
 
         foreach($arrayObject as $obj)
         {
-            $this->messageIds[] = $obj->guid;
+            $this->messageIds[] = $obj;
         }
     }
 }
 class DeliveryReport
 {
-    /** @var string */
     public $reportId;
-    /** @var string */
     public $phone;
-    /** @var string */
     public $messageId;
-    /** @var integer */
     public $status;
-    /** @var string */
     public $deliveryTime;
 
     function __construct($report)
@@ -72,7 +63,6 @@ class DeliveryReport
 }
 class GetUnreadDeliveryReportsResponse extends Response
 {
-    /** @var DeliveryReport[] */
     public $deliveryReports;
     function __construct($response)
     {
@@ -88,7 +78,6 @@ class GetUnreadDeliveryReportsResponse extends Response
 }
 class GetDeliveryReportsResponse extends Response
 {
-    /** @var DeliveryReport[] */
     public $deliveryReports;
     function __construct($response)
     {
@@ -104,15 +93,10 @@ class GetDeliveryReportsResponse extends Response
 }
 class InputSms
 {
-    /** @var string */
     public $messageId;
-    /** @var string */
     public $phone;
-    /** @var string */
     public $recipient;
-    /** @var string */
     public $message;
-    /** @var string */
     public $receivedTime;
 
     function __construct($inputSms)
@@ -126,7 +110,6 @@ class InputSms
 }
 class GetInputSmsesResponse extends Response
 {
-    /** @var InputSms[] */
     public $inputSmses;
     function __construct($response)
     {
@@ -142,7 +125,6 @@ class GetInputSmsesResponse extends Response
 }
 class GetUnreadInputSmsesResponse extends Response
 {
-    /** @var InputSms[] */
     public $inputSmses;
     function __construct($response)
     {
@@ -158,64 +140,58 @@ class GetUnreadInputSmsesResponse extends Response
 }
 class GetValidSendersResponse extends Response
 {
-    /** @var string[] */
     public $senders;
 
     function __construct($response)
     {
         parent::__construct($response);
                                                         
-        $arrayObject = createArray($response->Senders);
+        $arrayObject = createArray($response->Senders->string);
 
         foreach($arrayObject as $obj)
         {
-            $this->senders[] = $obj->string;
+            $this->senders[] = $obj;
         }
     }
 }
 class CheckPhonesResponse extends Response
 {
-    /** @var string[] */
     public $validPhones;
-    /** @var string[] */
     public $invalidPhones;
-    /** @var string[] */
     public $duplicates;
-    /** @var string[] */
     public $blockedPhones;
 
     function __construct($response)
     {
         parent::__construct($response);
                                           
-        $arrayObject1 = createArray($response->ValidPhones);
+        $arrayObject1 = createArray($response->ValidPhones->string);
         foreach($arrayObject1 as $obj)
         {
-            $this->validPhones[] = $obj->string;
+            $this->validPhones[] = $obj;
         }
 
-        $arrayObject2 = createArray($response->InvalidPhones);
+        $arrayObject2 = createArray($response->InvalidPhones->string);
         foreach($arrayObject2 as $obj)
         {
-            $this->invalidPhones[] = $obj->string;
+            $this->invalidPhones[] = $obj;
         }
 
-        $arrayObject3 = createArray($response->Duplicates);
+        $arrayObject3 = createArray($response->Duplicates->string);
         foreach($arrayObject3 as $obj)
         {
-            $this->duplicates[] = $obj->string;
+            $this->duplicates[] = $obj;
         }
 
-        $arrayObject4 = createArray($response->BlockedPhones);
+        $arrayObject4 = createArray($response->BlockedPhones->string);
         foreach($arrayObject4 as $obj)
         {
-            $this->blockedPhones[] = $obj->string;
+            $this->blockedPhones[] = $obj;
         }
     }
 }
 class ConvertToGsm7Response extends Response
 {
-    /** @var string */
     public $gsm7Text;
 
     function __construct($response)

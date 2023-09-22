@@ -1,5 +1,5 @@
 <?php
-require "..\simpleapi-php\src\Api.php";
+require "..\simpleapi-php\src\SimpleApi\HostedSmsSimpleApi.php";
 use PHPUnit\Framework\TestCase;
 class SendSmsTest extends TestCase
 {
@@ -7,7 +7,7 @@ class SendSmsTest extends TestCase
 
     private function prepareData()
     {
-        $this->hostedSms = new HostedSmsApi();
+        $this->hostedSms = new HostedSmsSimpleApi();
     }
 
     /** @test */
@@ -22,7 +22,7 @@ class SendSmsTest extends TestCase
 	    $convertMessageToGSM7 = false;
         $message = "test sms";
 
-        $response = $this->hostedSms->sendSimpleSms(
+        $response = $this->hostedSms->sendSms(
             $userEmail,
             $password,
             $sender,
@@ -50,7 +50,7 @@ class SendSmsTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        $response = $this->hostedSms->sendSimpleSms(
+        $response = $this->hostedSms->sendSms(
             $userEmail,
             $password,
             $sender,
