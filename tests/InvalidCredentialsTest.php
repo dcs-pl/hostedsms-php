@@ -1,5 +1,6 @@
 <?php
-require "..\simpleapi-php\src\WebService\HostedSmsWebService.php";
+require 'vendor/autoload.php';
+use HostedSms\WebService\HostedSmsWebService;
 use PHPUnit\Framework\TestCase;
 class InvalidCredentialsTest extends TestCase
 {
