@@ -1,4 +1,10 @@
 <?php
+/** https://api.hostedsms.pl/WS/smssender.asmx for documentation */
+
+namespace HostedSms\WebService;
+
+use ArrayObject;
+
 class Response
 {
     /** @var string */
