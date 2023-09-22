@@ -1,4 +1,5 @@
 <?php
+
 /** https://api.hostedsms.pl/WS/smssender.asmx for documentation */
 
 namespace HostedSms\WebService;
@@ -15,16 +16,14 @@ class Response
         $this->currentTime = $response->CurrentTime;
     }
     protected function createArray($tab)
-{
-    //if(is_null($tab))
-       // $arrayObject = new ArrayObject();
-    if(is_array($tab))
-        $arrayObject = new ArrayObject($tab);
-    else
-        $arrayObject = new ArrayObject([$tab]);
+    {
+        if (is_array($tab))
+            $arrayObject = new ArrayObject($tab);
+        else
+            $arrayObject = new ArrayObject([$tab]);
 
-    return $arrayObject;
-}
+        return $arrayObject;
+    }
 }
 
 class SendSmsResponse extends Response
@@ -47,7 +46,7 @@ class SendSmsesResponse extends Response
     {
         parent::__construct($response);
 
-        if(isset($response->MessageIds->guid))
+        if (isset($response->MessageIds->guid))
             $this->messageIds = parent::createArray($response->MessageIds->guid);
         else
             $this->messageIds = [];
@@ -61,7 +60,15 @@ class DeliveryReport
     public $phone;
     /** @var string */
     public $messageId;
-    /** @var int */
+    /** 
+     * Message status
+     * -3 - message declined by operator
+     * -2 - message outdated
+     * -1 - message undelivered
+     *  0 - undefined state (shouldn't ever occur)
+     *  1 - message delivered  
+     * @var int 
+     */
     public $status;
     /** @var string */
     public $deliveryTime;
@@ -83,15 +90,12 @@ class GetUnreadDeliveryReportsResponse extends Response
     {
         parent::__construct($response);
 
-        if(isset($response->DeliveryReports->DeliveryReport))
-        {
+        if (isset($response->DeliveryReports->DeliveryReport)) {
             $arrayObject = parent::createArray($response->DeliveryReports->DeliveryReport);
-            foreach($arrayObject as $obj)
-            {
+            foreach ($arrayObject as $obj) {
                 $this->deliveryReports[] = new DeliveryReport($obj);
             }
-        }
-        else
+        } else
             $this->deliveryReports = [];
     }
 }
@@ -103,15 +107,12 @@ class GetDeliveryReportsResponse extends Response
     {
         parent::__construct($response);
 
-        if(isset($response->DeliveryReports->DeliveryReport))
-        {
+        if (isset($response->DeliveryReports->DeliveryReport)) {
             $arrayObject = parent::createArray($response->DeliveryReports->DeliveryReport);
-            foreach($arrayObject as $obj)
-            {
+            foreach ($arrayObject as $obj) {
                 $this->deliveryReports[] = new DeliveryReport($obj);
             }
-        }
-        else
+        } else
             $this->deliveryReports = [];
     }
 }
@@ -145,15 +146,12 @@ class GetInputSmsesResponse extends Response
     {
         parent::__construct($response);
 
-        if(isset($response->InputSms->InputSms))
-        {
+        if (isset($response->InputSms->InputSms)) {
             $arrayObject = parent::createArray($response->InputSms->InputSms);
-            foreach($arrayObject as $obj)
-            {
+            foreach ($arrayObject as $obj) {
                 $this->inputSmses[] = new InputSms($obj);
             }
-        }
-        else
+        } else
             $this->inputSmses = [];
     }
 }
@@ -164,16 +162,13 @@ class GetUnreadInputSmsesResponse extends Response
     function __construct($response)
     {
         parent::__construct($response);
-                                                    
-        if(isset($response->InputSms->InputSms))
-        {
+
+        if (isset($response->InputSms->InputSms)) {
             $arrayObject = parent::createArray($response->InputSms->InputSms);
-            foreach($arrayObject as $obj)
-            {
+            foreach ($arrayObject as $obj) {
                 $this->inputSmses[] = new InputSms($obj);
             }
-        }
-        else
+        } else
             $this->inputSmses = [];
     }
 }
@@ -185,8 +180,8 @@ class GetValidSendersResponse extends Response
     function __construct($response)
     {
         parent::__construct($response);
-                                                        
-        if(isset($response->Senders->string))
+
+        if (isset($response->Senders->string))
             $this->senders = parent::createArray($response->Senders->string);
         else
             $this->senders = [];
@@ -206,23 +201,23 @@ class CheckPhonesResponse extends Response
     function __construct($response)
     {
         parent::__construct($response);
-                                          
-        if(isset($$response->ValidPhones->string))
+
+        if (isset($response->ValidPhones->string))
             $this->validPhones = parent::createArray($response->ValidPhones->string);
         else
             $this->validPhones = [];
 
-        if(isset($$response->InvalidPhones->string))
+        if (isset($response->InvalidPhones->string))
             $this->invalidPhones = parent::createArray($response->InvalidPhones->string);
         else
             $this->invalidPhones = [];
 
-        if(isset($$response->Duplicates->string))
+        if (isset($response->Duplicates->string))
             $this->duplicates = parent::createArray($response->Duplicates->string);
         else
             $this->duplicates = [];
 
-        if(isset($$response->BlockedPhones->string))
+        if (isset($response->BlockedPhones->string))
             $this->blockedPhones = parent::createArray($response->BlockedPhones->string);
         else
             $this->blockedPhones = [];
@@ -239,4 +234,3 @@ class ConvertToGsm7Response extends Response
         $this->gsm7Text = $response->Gsm7Text;
     }
 }
-?>

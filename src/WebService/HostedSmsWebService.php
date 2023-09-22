@@ -1,4 +1,5 @@
 <?php
+
 /** https://api.hostedsms.pl/WS/smssender.asmx for documentation */
 
 namespace HostedSms\WebService;
@@ -13,6 +14,7 @@ use Exception;
 class HostedSmsWebService
 {
     private $client;
+
     /** 
      * Create client for API with credentials
      * 
@@ -209,8 +211,8 @@ class HostedSmsWebService
         $priority = 0,
         $flashSms = false,
         $costCenter = null,
-        $convertMessageToGSM7 = null) 
-    {
+        $convertMessageToGSM7 = null
+    ) {
         $params = [
             'Phone' => $phone,
             'Message' => $message,
