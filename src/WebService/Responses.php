@@ -4,7 +4,7 @@ function createArray($tab)
     if(is_array($tab))
         $arrayObject = new ArrayObject($tab);
     else
-        $arrayObject = new ArrayObject([$tab]);
+        $arrayObject = new ArrayObject($tab);
 
     return $arrayObject;
 }
