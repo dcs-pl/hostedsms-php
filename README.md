@@ -1,15 +1,24 @@
 HostedSMS API
 ================
 
-PHP API Client for sending SMS messages via HostedSMS.pl SimpleApi
+PHP API Client HostedSMS.pl WEBSERWIS2SMS API and SimpleAPI
 
-**[HostedSMS.pl SimpleApi documentation](https://hostedsms.pl/pl/api-sms/opis-techniczny-api/)**
+**[HostedSMS.pl API documentation](https://hostedsms.pl/pl/api-sms/opis-techniczny-api/)**
 
-### Sending SMS
+#### Requirements
+php >= 7.4  
+composer (https://getcomposer.org/)
+
+#### Install package with dependencies
+`composer require simpleapi/php-client`
+
+## SimpleApi
+
+#### Sending SMS
 ```php
-    $hostedSmsApi = new HostedSmsApi();
+    $simpleApi = new HostedSmsSimpleApi();
 
-    $response = $hostedSmsApi->sendSimpleSms(
+    $response = $simpleApi->sendSms(
 			$userEmail,
 			$password,
 			$sender,
@@ -17,10 +26,66 @@ PHP API Client for sending SMS messages via HostedSMS.pl SimpleApi
 			$message
 		);
 ```
-### Requirements
-php >= 7.4  
-composer (https://getcomposer.org/)
 
-### Install package with dependencies
+## WebService API
 
-`composer require simpleapi/php-client`
+#### Create client
+```php
+$client = new HostedSmsWebService($userEmail, $password);
+```
+
+#### Send SMS
+```php
+$response = $client->sendSms(
+			$phone,
+			$message,
+			$sender,
+    		$transactionId
+		);
+```
+
+#### Send multiple SMSes
+```php
+$response = $client->sendSmses(
+			$phones,
+			$message,
+			$sender,
+    		$transactionId
+		);
+```
+
+#### Get all valid senders for user
+```php
+$response = $client->getValidSenders();
+```
+
+#### Get delivery reports
+```php
+$response = $client->getDeliveryReports($messageIds);
+```
+
+#### Get unread delivery reports
+```php
+$response = $client->getunreadDeliveryReports();
+```
+
+#### Get received smses
+```php
+$response = $client->getInputSmses($from, $to, $recipient, $markAsRead);
+```
+
+#### Get unread received smses
+```php
+$response = $client->getUnreadInputSmses();
+```
+
+#### Check if phone numbers are valid
+```php
+$response = $client->checkPhones($phones);
+```
+
+#### Convert text to GSM7
+```php
+$response = $client->convertToGSM7($text);
+```
+
