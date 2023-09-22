@@ -2,7 +2,7 @@
 require 'vendor/autoload.php';
 use HostedSms\WebService\HostedSmsWebService;
 use PHPUnit\Framework\TestCase;
-class ValidDataTest extends TestCase
+class WebServiceValidDataTest extends TestCase
 {
     private $hostedSms;
     private function prepareData()

@@ -2,7 +2,7 @@
 require 'vendor\autoload.php';
 use HostedSms\SimpleApi\HostedSmsSimpleApi;
 use PHPUnit\Framework\TestCase;
-class SendSmsTest extends TestCase
+class SimpleApiSendSmsTest extends TestCase
 {
     private $hostedSms;
 

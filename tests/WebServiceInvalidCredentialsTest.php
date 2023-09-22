@@ -2,7 +2,7 @@
 require 'vendor/autoload.php';
 use HostedSms\WebService\HostedSmsWebService;
 use PHPUnit\Framework\TestCase;
-class InvalidCredentialsTest extends TestCase
+class WebServiceInvalidCredentialsTest extends TestCase
 {
     private $hostedSms;
     private function prepareData()
