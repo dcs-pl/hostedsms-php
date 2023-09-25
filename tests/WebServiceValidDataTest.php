@@ -27,6 +27,7 @@ class WebServiceValidDataTest extends TestCase
         $this->assertNotNull($response->currentTime);
     }
 
+    /** @test */
     public function test_SendSmses_Should_Be_Valid()
     {
         $this->prepareData();
@@ -41,6 +42,7 @@ class WebServiceValidDataTest extends TestCase
         $this->assertNotNull($response->currentTime);
     }
 
+    /** @test */
     public function test_CheckPhones_Should_Be_Valid()
     {
         $this->prepareData();
@@ -51,6 +53,7 @@ class WebServiceValidDataTest extends TestCase
         $this->assertNotNull($response->currentTime);
     }
 
+    /** @test */
     public function test_ConvertToGsm7_Should_Be_Valid()
     {
         $this->prepareData();
@@ -61,6 +64,7 @@ class WebServiceValidDataTest extends TestCase
         $this->assertNotNull($response->currentTime);
     }
 
+    /** @test */
     public function test_GetDeliveryReports_Should_Be_Valid()
     {
         $this->prepareData();
@@ -71,6 +75,7 @@ class WebServiceValidDataTest extends TestCase
         $this->assertNotNull($response->currentTime);
     }
 
+    /** @test */
     public function test_GetInputSmses_Should_Be_Valid()
     {
         $this->prepareData();
@@ -84,6 +89,7 @@ class WebServiceValidDataTest extends TestCase
         $this->assertNotNull($response->currentTime);
     }
 
+    /** @test */
     public function test_GetUnreadDeliveryReports_Should_Be_Valid()
     {
         $this->prepareData();
@@ -93,6 +99,7 @@ class WebServiceValidDataTest extends TestCase
         $this->assertNotNull($response->currentTime);
     }
 
+    /** @test */
     public function test_GetUnreadInputSmses_Should_Be_Valid()
     {
         $this->prepareData();
@@ -102,6 +109,7 @@ class WebServiceValidDataTest extends TestCase
         $this->assertNotNull($response->currentTime);
     }
 
+    /** @test */
     public function test_GetValidSenders_Should_Be_Valid()
     {
         $this->prepareData();
