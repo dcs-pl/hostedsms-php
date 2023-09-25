@@ -5,22 +5,24 @@ use PHPUnit\Framework\TestCase;
 class WebServiceValidDataTest extends TestCase
 {
     private $hostedSms;
+    private $phone;
+    private $sender;
     private function prepareData()
     {
         $this->hostedSms = new HostedSmsWebService(getenv('HSMS_TEST_USERNAME'), getenv('HSMS_TEST_PASSWORD'));
+        $this->phone = getenv('HSMS_TEST_PHONE');
+        $this->sender = getenv('HSMS_TEST_SENDER');
     }
 
     /** @test */
     public function test_SendSms_Should_Be_Valid()
     {
         $this->prepareData();
-        $phone = getenv('HSMS_TEST_PHONE');
 	    $message = 'test';
-        $sender = getenv('HSMS_TEST_SENDER');
         $currentDateTime = date('Y-m-d H:i:s');
-	    $transactionId = $sender . $phone . $message . $currentDateTime; 
+	    $transactionId = $this->sender . $this->phone . $message . $currentDateTime; 
 
-        $response = $this->hostedSms->sendSms($phone, $message, $sender, $transactionId);
+        $response = $this->hostedSms->sendSms($this->phone, $message, $this->sender, $transactionId);
 
         $this->assertNotNull($response->currentTime);
     }
@@ -28,9 +30,9 @@ class WebServiceValidDataTest extends TestCase
     public function test_SendSmses_Should_Be_Valid()
     {
         $this->prepareData();
-        $phones = [getenv('HSMS_TEST_PHONE')];
+        $phones = [$this->phone];
 	    $message = 'test';
-        $sender = getenv('HSMS_TEST_SENDER');
+        $sender = $this->sender;
         $currentDateTime = date('Y-m-d H:i:s');
 	    $transactionId = $sender . $message . $currentDateTime; 
 
@@ -42,7 +44,7 @@ class WebServiceValidDataTest extends TestCase
     public function test_CheckPhones_Should_Be_Valid()
     {
         $this->prepareData();
-        $phones = [getenv('HSMS_TEST_PHONE')];
+        $phones = [$this->phone];
 
         $response = $this->hostedSms->checkPhones($phones);
 
@@ -74,7 +76,7 @@ class WebServiceValidDataTest extends TestCase
         $this->prepareData();
         $from = null;
         $to = null;
-        $recipient = 'test';
+        $recipient = $this->phone;
         $markAsRead = false;
 
         $response = $this->hostedSms->getInputSmses($from, $to, $recipient, $markAsRead);
