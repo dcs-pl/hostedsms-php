@@ -22,7 +22,7 @@ class SimpleApiSendSmsTest extends TestCase
     /**
      * @dataProvider providerTestData
      */
-    public function test_Send_Sms_Should_Be_Successfull($userEmail, $password, $sender, $phone): void
+    public function test_Send_Sms_Should_Be_Successful($userEmail, $password, $sender, $phone): void
     {
         $this->prepareData($userEmail, $password);
         $message = "test sms";
