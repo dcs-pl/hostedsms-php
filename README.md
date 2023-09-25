@@ -14,7 +14,7 @@ composer (https://getcomposer.org/)
 
 ## SimpleApi
 
-#### Sending SMS
+#### Send SMS
 ```php
     require 'vendor/autoload.php';
     use HostedSms\SimpleApi\HostedSmsSimpleApi;
