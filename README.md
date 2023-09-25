@@ -10,11 +10,11 @@ php >= 7.4
 composer (https://getcomposer.org/)
 
 ## Install package with dependencies
-`composer require simpleapi/php-client`
+`composer require hostedsms/php-client`
 
 ## SimpleApi
 
-#### Sending SMS
+#### Send SMS
 ```php
     require 'vendor/autoload.php';
     use HostedSms\SimpleApi\HostedSmsSimpleApi;
