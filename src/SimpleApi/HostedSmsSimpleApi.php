@@ -2,8 +2,7 @@
 
 namespace HostedSms\SimpleApi;
 
-use HostedSms\SimpleApi\SimpleApiException;
-
+require 'Exceptions.php';
 class HostedSmsSimpleApi
 {
 
@@ -73,7 +72,7 @@ class HostedSmsSimpleApi
         if (curl_errno($ch))
         {
             curl_close($ch);
-            throw new SimpleApiException('Call error' . curl_error($ch), curl_errno($ch));
+            throw new SimpleApiException('Call error' . curl_error($ch));
         }
 
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);

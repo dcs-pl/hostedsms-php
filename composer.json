@@ -4,6 +4,10 @@
     "description": "HostedSMS API PHP",
     "license": "Apache-2.0",
     "type": "library",
+    "require": {
+        "php": ">=7.4", 
+        "ext-curl": "*"
+    },
     "repositories": [
         {
             "type": "git",
