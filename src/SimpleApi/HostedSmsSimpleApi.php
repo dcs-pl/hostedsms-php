@@ -63,7 +63,6 @@ class HostedSmsSimpleApi
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
         $headers = [
-
             'Content-Type: application/json; charset=UTF-8',
         ];
 
@@ -73,13 +72,17 @@ class HostedSmsSimpleApi
         $jsonResponse = curl_exec($ch);
 
         if (curl_errno($ch))
+        {
+            curl_close($ch);
             throw new Exception('Call error' . curl_error($ch), curl_errno($ch));
+        }
 
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if ($responseCode != 200)
-            throw new Exception('Request failed: ' . $responseCode . ' Error');
 
         curl_close($ch);
+
+        if ($responseCode != 200)
+            throw new Exception('Request failed: ' . $responseCode . ' Error');
 
         $response = json_decode($jsonResponse);
 
