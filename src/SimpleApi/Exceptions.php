@@ -10,7 +10,7 @@ class SimpleApiException extends Exception
 {
     function __construct($errorMessage)
     {
-        $this->message = $errorMessage;
+        parent::__construct($errorMessage);
     }
 }
 

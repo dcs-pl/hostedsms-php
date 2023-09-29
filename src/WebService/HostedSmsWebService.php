@@ -5,8 +5,8 @@
 namespace HostedSms\WebService;
 
 use HostedSms\WebService\SoapRequestClient\SoapRequestClient;
-use HostedSms\WebService\WebServiceApiException;
 
+require 'Exceptions.php';
 require 'Responses.php';
 require 'SoapRequestClient.php';
 
@@ -32,7 +32,7 @@ class HostedSmsWebService
      * 
      * @return CheckPhonesResponse if succesful request
      * 
-     * @throws WebServiceApiException if failed request
+     * @throws WebServiceException if failed request
      */
     public function checkPhones($phones)
     {
@@ -42,7 +42,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('CheckPhones', $params);
 
         if (!$response->CheckPhonesResult) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new CheckPhonesResponse($response);
@@ -55,7 +55,7 @@ class HostedSmsWebService
      * 
      * @return ConvertToGsm7Response if succesful request
      * 
-     * @throws WebServiceApiException if failed request 
+     * @throws WebServiceException if failed request 
      */
     public function convertToGsm7($text)
     {
@@ -65,7 +65,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('ConvertToGsm7', $params);
 
         if (!$response->ConvertToGsm7Result) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new ConvertToGsm7Response($response);
@@ -79,7 +79,7 @@ class HostedSmsWebService
      * 
      * @return GetDeliveryReportsResponse if succesful request
      * 
-     * @throws WebServiceApiException if failed request 
+     * @throws WebServiceException if failed request 
      */
     public function getDeliveryReports($messageIds, $markAsRead = false)
     {
@@ -91,7 +91,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('GetDeliveryReports', $params);
 
         if (!$response->GetDeliveryReportsResult) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new GetDeliveryReportsResponse($response);
@@ -107,7 +107,7 @@ class HostedSmsWebService
      * 
      * @return GetInputSmsesResponse if succesful request
      * 
-     * @throws WebServiceApiException if failed request 
+     * @throws WebServiceException if failed request 
      */
     public function getInputSmses($from, $to, $recipient, $markAsRead)
     {
@@ -120,7 +120,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('GetInputSmses', $params);
 
         if (!$response->GetInputSmsesResult) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new GetInputSmsesResponse($response);
@@ -131,7 +131,7 @@ class HostedSmsWebService
      * 
      * @return GetUnreadDeliveryReportsResponse if succesful request
      * 
-     * @throws WebServiceApiException if failed request 
+     * @throws WebServiceException if failed request 
      */
     public function getUnreadDeliveryReports()
     {
@@ -139,7 +139,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('GetUnreadDeliveryReports', $params);
 
         if (!$response->GetUnreadDeliveryReportsResult) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new GetUnreadDeliveryReportsResponse($response);
@@ -151,7 +151,7 @@ class HostedSmsWebService
      * 
      * @return GetUnreadInputSmsesResponse if succesful request
      * 
-     * @throws WebServiceApiException if failed request 
+     * @throws WebServiceException if failed request 
      */
     public function getUnreadInputSmses()
     {
@@ -159,7 +159,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('GetUnreadInputSmses', $params);
 
         if (!$response->GetUnreadInputSmsesResult) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new GetUnreadInputSmsesResponse($response);
@@ -170,7 +170,7 @@ class HostedSmsWebService
      * 
      * @return GetValidSendersResponse if succesful request
      * 
-     * @throws WebServiceApiException if failed request 
+     * @throws WebServiceException if failed request 
      */
     public function getValidSenders()
     {
@@ -178,7 +178,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('GetValidSenders', $params);
 
         if (!$response->GetValidSendersResult) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new GetValidSendersResponse($response);
@@ -199,7 +199,7 @@ class HostedSmsWebService
      * 
      * @return SendSmsResponse if successful request
      * 
-     * @throws WebServiceApiException if failed request
+     * @throws WebServiceException if failed request
      */
     public function sendSms(
         $phone,
@@ -227,7 +227,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('SendSms', $params);
 
         if (!$response->SendSmsResult) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new SendSmsResponse($response);
@@ -248,7 +248,7 @@ class HostedSmsWebService
      * 
      * @return SendSmsesResponse if successful request
      * 
-     * @throws WebServiceApiException if failed request
+     * @throws WebServiceException if failed request
      */
     public function sendSmses(
         $phones,
@@ -276,7 +276,7 @@ class HostedSmsWebService
         $response = $this->client->sendRequest('SendSmses', $params);
 
         if (!$response->SendSmsesResult) {
-            throw new WebServiceApiException($response->ErrorMessage);
+            throw new WebServiceException($response->ErrorMessage);
         }
 
         return new SendSmsesResponse($response);

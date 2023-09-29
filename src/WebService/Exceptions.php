@@ -6,11 +6,11 @@ namespace HostedSms\WebService;
 
 use Exception;
 
-class WebServiceApiException extends Exception
+class WebServiceException extends Exception
 {
     function __construct($errorMessage)
     {
-        $this->message = $errorMessage;
+        parent::__construct($errorMessage);
     }
 }
 
