@@ -59,13 +59,12 @@ class HostedSmsSimpleApi
 
         $ch = curl_init($this->simpleApiUrl);
 
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-
         $headers = [
             'Content-Type: application/json; charset=UTF-8',
         ];
 
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -86,12 +85,7 @@ class HostedSmsSimpleApi
 
         $response = json_decode($jsonResponse);
 
-        if (isset($response->ErrorMessage))
-            throw new SimpleApiException('Request failed' . $response->ErrorMessage);
-
-        curl_close($ch);
-
-        return $response->MessageId;
+        return $response;
     }
 
     private function setData(
