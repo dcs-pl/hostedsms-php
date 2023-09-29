@@ -2,7 +2,7 @@
 
 namespace HostedSms\SimpleApi;
 
-use Exception;
+use HostedSms\SimpleApi\SimpleApiException;
 
 class HostedSmsSimpleApi
 {
@@ -34,7 +34,7 @@ class HostedSmsSimpleApi
      * 
      * @return string returns messageId if successful request
      * 
-     * @throws Exception if failed request
+     * @throws SimpleApiException if failed request
      */
     public function sendSms(
         $sender,
@@ -69,16 +69,16 @@ class HostedSmsSimpleApi
         $jsonResponse = curl_exec($ch);
 
         if (curl_errno($ch))
-            throw new Exception('Call error' . curl_error($ch), curl_errno($ch));
+            throw new SimpleApiException('Call error' . curl_error($ch));
 
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($responseCode != 200)
-            throw new Exception('Request failed: ' . $responseCode . ' Error');
+            throw new SimpleApiException('Request failed: ' . $responseCode);
 
         $response = json_decode($jsonResponse);
 
         if (isset($response->ErrorMessage))
-            throw new Exception('Request failed' . $response->ErrorMessage);
+            throw new SimpleApiException('Request failed' . $response->ErrorMessage);
 
         curl_close($ch);
 
