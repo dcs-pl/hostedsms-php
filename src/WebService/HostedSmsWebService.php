@@ -4,7 +4,11 @@
 
 namespace HostedSms\WebService;
 
+use DateTimeInterface;
 use HostedSms\WebService\SoapRequestClient\SoapRequestClient;
+
+use function PHPUnit\Framework\isNull;
+use function PHPUnit\Framework\returnSelf;
 
 require 'Exceptions.php';
 require 'Responses.php';
@@ -23,6 +27,14 @@ class HostedSmsWebService
     public function __construct($userEmail, $password)
     {
         $this->client = new SoapRequestClient($userEmail, $password);
+    }
+
+    private function getIsoDateTime($dateTime)
+    {
+        if($dateTime instanceof DateTimeInterface)
+            return $dateTime->format(DateTimeInterface::ATOM);
+        else
+            return $dateTime;
     }
 
     /**
@@ -100,8 +112,8 @@ class HostedSmsWebService
     /**
      * Gets received smses
      * 
-     * @param string $from in 'YYYY-MM-DDTHH:MM:SS' format
-     * @param string $to in 'YYYY-MM-DDTHH:MM:SS' format
+     * @param DateTimeInterface|string $from in 'YYYY-MM-DDTHH:MM:SS' format if string
+     * @param DateTimeInterface|string $to in 'YYYY-MM-DDTHH:MM:SS' format if string
      * @param string $recipient phone number in '48xxxxxxxxx' format
      * @param bool $markAsRead should messages be marked as read
      * 
@@ -112,8 +124,8 @@ class HostedSmsWebService
     public function getInputSmses($from, $to, $recipient, $markAsRead)
     {
         $params = [
-            'From' => $from,
-            'To' => $to,
+            'From' => $this->getIsoDateTime($from),
+            'To' => $this->getIsoDateTime($to),
             'Ricipient' => $recipient,
             'MarkAsRead' => $markAsRead
         ];
@@ -191,7 +203,7 @@ class HostedSmsWebService
      * @param string $message
      * @param string $sender
      * @param string $transactionId
-     * @param string $validityPeriod in 'YYYY-MM-DDTHH:MM:SS' format
+     * @param DateTimeInterface|string $validityPeriod in 'YYYY-MM-DDTHH:MM:SS' format if string
      * @param integer $priority (optional) a number between 0 and 3
      * @param bool $flashSms (optional) should message be sent as flash sms
      * @param string $costCenter (optional) cost center name, null if none is used
@@ -217,7 +229,7 @@ class HostedSmsWebService
             'Message' => $message,
             'Sender' => $sender,
             'TransactionId' => $transactionId,
-            'ValidityPeriod' => $validityPeriod,
+            'ValidityPeriod' => $this->getIsoDateTime($validityPeriod),
             'Priority' => $priority,
             'FlashSms' => $flashSms,
             'CostCenter' => $costCenter,
@@ -240,7 +252,7 @@ class HostedSmsWebService
      * @param string $message
      * @param string $sender
      * @param string $transactionId
-     * @param string $validityPeriod in 'YYYY-MM-DDTHH:MM:SS' format
+     * @param DateTimeInterface|string $validityPeriod in 'YYYY-MM-DDTHH:MM:SS' format if string
      * @param integer $priority (optional) a number between 0 and 3
      * @param bool $flashSms (optional) should message be sent as flash sms
      * @param string $costCenter (optional) cost center name, null if none is used
@@ -266,7 +278,7 @@ class HostedSmsWebService
             'Message' => $message,
             'Sender' => $sender,
             'TransactionId' => $transactionId,
-            'ValidityPeriod' => $validityPeriod,
+            'ValidityPeriod' => $this->getIsoDateTime($validityPeriod),
             'Priority' => $priority,
             'FlashSms' => $flashSms,
             'CostCenter' => $costCenter,
