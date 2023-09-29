@@ -13,8 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "HostedSms\\WebService\\": "src/WebService/",
-            "HostedSms\\SimpleApi\\": "src/SimpleApi/"
+            "HostedSms\\": "src/"
         }
     }
 }

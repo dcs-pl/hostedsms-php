@@ -7,9 +7,9 @@ namespace HostedSms\WebService;
 use DateTimeInterface;
 use HostedSms\WebService\SoapRequestClient\SoapRequestClient;
 
-require 'Exceptions.php';
-require 'Responses.php';
-require 'SoapRequestClient.php';
+require_once 'Exceptions.php';
+require_once 'Responses.php';
+require_once 'SoapRequestClient.php';
 
 class HostedSmsWebService
 {
