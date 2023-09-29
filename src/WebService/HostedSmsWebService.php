@@ -7,9 +7,6 @@ namespace HostedSms\WebService;
 use DateTimeInterface;
 use HostedSms\WebService\SoapRequestClient\SoapRequestClient;
 
-use function PHPUnit\Framework\isNull;
-use function PHPUnit\Framework\returnSelf;
-
 require 'Exceptions.php';
 require 'Responses.php';
 require 'SoapRequestClient.php';

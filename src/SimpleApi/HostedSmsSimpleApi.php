@@ -5,7 +5,6 @@ namespace HostedSms\SimpleApi;
 require 'Exceptions.php';
 class HostedSmsSimpleApi
 {
-
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
     private $userEmail;
     private $password;
@@ -76,14 +75,15 @@ class HostedSmsSimpleApi
         }
 
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-        curl_close($ch);
-
         if ($responseCode != 200)
+        {
+            curl_close($ch);
             throw new SimpleApiException('Request failed: ' . $responseCode);
-
+        }
+        
+        curl_close($ch);
+        
         $response = json_decode($jsonResponse);
-
         return $response;
     }
 
