@@ -8,7 +8,6 @@ class HostedSmsSimpleApi
 {
 
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
-    private $data;
     private $userEmail;
     private $password;
 
@@ -44,45 +43,49 @@ class HostedSmsSimpleApi
         $convertMessageToGSM7 = null
     ) {
 
-        $this->setData($this->userEmail, $this->password, $sender, $phone, $message, $v, $convertMessageToGSM7);
+        $data = $this->setData($this->userEmail, $this->password, $sender, $phone, $message, $v, $convertMessageToGSM7);
 
-        return $this->sendRequest();
+        $response = $this->sendRequest($data);
+
+        if (isset($response->ErrorMessage))
+            throw new SimpleApiException('Request failed: ' . $response->ErrorMessage);
+
+        return $response->MessageId;
     }
 
-    private function sendRequest()
+    private function sendRequest($data)
     {
-        $jsonData = json_encode($this->data);
+        $jsonData = json_encode($data);
 
         $ch = curl_init($this->simpleApiUrl);
 
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-
         $headers = [
-            
             'Content-Type: application/json; charset=UTF-8',
         ];
 
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $jsonResponse = curl_exec($ch);
 
         if (curl_errno($ch))
-            throw new SimpleApiException('Call error' . curl_error($ch));
+        {
+            curl_close($ch);
+            throw new SimpleApiException('Call error' . curl_error($ch), curl_errno($ch));
+        }
 
         $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        curl_close($ch);
+
         if ($responseCode != 200)
             throw new SimpleApiException('Request failed: ' . $responseCode);
 
         $response = json_decode($jsonResponse);
 
-        if (isset($response->ErrorMessage))
-            throw new SimpleApiException('Request failed' . $response->ErrorMessage);
-
-        curl_close($ch);
-
-        return $response->MessageId;
+        return $response;
     }
 
     private function setData(
@@ -94,7 +97,7 @@ class HostedSmsSimpleApi
         $v,
         $convertMessageToGSM7
     ) {
-        $this->data = [
+        $data = [
             'UserEmail' => $userEmail,
             'Password' => $password,
             'Sender' => $sender,
@@ -103,5 +106,6 @@ class HostedSmsSimpleApi
             'v' => $v,
             'convertMessageToGSM7' => $convertMessageToGSM7
         ];
+        return $data;
     }
 }
