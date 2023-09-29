@@ -8,7 +8,6 @@ class HostedSmsSimpleApi
 {
 
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
-    private $data;
     private $userEmail;
     private $password;
 
@@ -44,14 +43,19 @@ class HostedSmsSimpleApi
         $convertMessageToGSM7 = null
     ) {
 
-        $this->setData($this->userEmail, $this->password, $sender, $phone, $message, $v, $convertMessageToGSM7);
+        $data = $this->setData($this->userEmail, $this->password, $sender, $phone, $message, $v, $convertMessageToGSM7);
 
-        return $this->sendRequest();
+        $response = $this->sendRequest($data);
+
+        if (isset($response->ErrorMessage))
+            throw new Exception('Request failed: ' . $response->ErrorMessage);
+
+        return $response->MessageId;
     }
 
-    private function sendRequest()
+    private function sendRequest($data)
     {
-        $jsonData = json_encode($this->data);
+        $jsonData = json_encode($data);
 
         $ch = curl_init($this->simpleApiUrl);
 
@@ -59,7 +63,7 @@ class HostedSmsSimpleApi
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
         $headers = [
-            
+
             'Content-Type: application/json; charset=UTF-8',
         ];
 
@@ -75,14 +79,11 @@ class HostedSmsSimpleApi
         if ($responseCode != 200)
             throw new Exception('Request failed: ' . $responseCode . ' Error');
 
-        $response = json_decode($jsonResponse);
-
-        if (isset($response->ErrorMessage))
-            throw new Exception('Request failed' . $response->ErrorMessage);
-
         curl_close($ch);
 
-        return $response->MessageId;
+        $response = json_decode($jsonResponse);
+
+        return $response;
     }
 
     private function setData(
@@ -94,7 +95,7 @@ class HostedSmsSimpleApi
         $v,
         $convertMessageToGSM7
     ) {
-        $this->data = [
+        $data = [
             'UserEmail' => $userEmail,
             'Password' => $password,
             'Sender' => $sender,
@@ -103,5 +104,6 @@ class HostedSmsSimpleApi
             'v' => $v,
             'convertMessageToGSM7' => $convertMessageToGSM7
         ];
+        return $data;
     }
 }
