@@ -18,7 +18,6 @@ class SoapRequestClient
             'Password' => $password
         ];
         $this->client = new SoapClient($this->apiWSDL, [
-            'trace' => true,
             'exceptions' => true,
             'soap_version' => SOAP_1_2,
         ]);
