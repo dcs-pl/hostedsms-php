@@ -1,5 +1,5 @@
 {
-    "name": "hostedsms/php-client",
+    "name": "dcs-pl/hostedsms-php",
     "version": "1.0.0",
     "description": "HostedSMS API PHP",
     "license": "Apache-2.0",
