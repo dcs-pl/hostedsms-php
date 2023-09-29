@@ -8,12 +8,6 @@
         "php": ">=7.4", 
         "ext-curl": "*"
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://bitbucket.dcs.pl/scm/hsms/simpleapi-php.git"
-        }
-    ],
     "require-dev": {
         "phpunit/phpunit": "^9.6"
     },
