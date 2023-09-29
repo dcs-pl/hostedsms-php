@@ -2,7 +2,7 @@
 
 namespace HostedSms\SimpleApi;
 
-require 'Exceptions.php';
+require_once 'Exceptions.php';
 class HostedSmsSimpleApi
 {
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
@@ -41,7 +41,7 @@ class HostedSmsSimpleApi
         $convertMessageToGSM7 = null
     ) {
 
-        $data = $this->setData($this->userEmail, $this->password, $sender, $phone, $message, $v, $convertMessageToGSM7);
+        $data = $this->prepareRequestData($this->userEmail, $this->password, $sender, $phone, $message, $v, $convertMessageToGSM7);
 
         $response = $this->sendRequest($data);
 
@@ -87,7 +87,7 @@ class HostedSmsSimpleApi
         return $response;
     }
 
-    private function setData(
+    private function prepareRequestData(
         $userEmail,
         $password,
         $sender,
