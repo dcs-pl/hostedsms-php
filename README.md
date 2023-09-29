@@ -10,22 +10,18 @@ php >= 7.4
 composer (https://getcomposer.org/)
 
 ## Install package with dependencies
-`composer require hostedsms/php-client`
+`composer require dcs-pl/hostedsms-php`
 
 ## SimpleApi
 
 #### Send SMS
 ```php
-    require 'vendor/autoload.php';
-    use HostedSms\SimpleApi\HostedSmsSimpleApi;
-    
-    $simpleApi = new HostedSmsSimpleApi($userEmail, $password);
+require 'vendor/autoload.php';
+use HostedSms\SimpleApi\HostedSmsSimpleApi;
 
-    $response = $simpleApi->sendSms(
-			$sender,
-			$phone,
-			$message
-		);
+$simpleApi = new HostedSmsSimpleApi($userEmail, $password);
+
+$response = $simpleApi->sendSms($sender, $phone, $message);
 ```
 
 ## WebService API
@@ -40,22 +36,12 @@ $client = new HostedSmsWebService($userEmail, $password);
 
 #### Send SMS
 ```php
-$response = $client->sendSms(
-			$phone,
-			$message,
-			$sender,
-    		$transactionId
-		);
+$response = $client->sendSms($phone, $message, $sender, $transactionId);
 ```
 
 #### Send multiple SMSes
 ```php
-$response = $client->sendSmses(
-			$phones,
-			$message,
-			$sender,
-    		$transactionId
-		);
+$response = $client->sendSmses($phones, $message, $sender, $transactionId);
 ```
 
 #### Get all valid senders for user
