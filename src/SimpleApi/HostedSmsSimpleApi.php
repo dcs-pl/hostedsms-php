@@ -2,7 +2,6 @@
 
 namespace HostedSms\SimpleApi;
 
-require_once 'Exceptions.php';
 class HostedSmsSimpleApi
 {
     private $simpleApiUrl = 'https://api.hostedsms.pl/SimpleApi';
@@ -46,7 +45,7 @@ class HostedSmsSimpleApi
         $response = $this->sendRequest($data);
 
         if (isset($response->ErrorMessage))
-            throw new SimpleApiException('Request failed: ' . $response->ErrorMessage);
+            throw new SimpleApiException($response->ErrorMessage);
 
         return $response->MessageId;
     }
