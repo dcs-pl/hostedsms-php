@@ -1,4 +1,4 @@
-<?php
+
 
 /** https://api.hostedsms.pl/WS/smssender.asmx for documentation */
 
