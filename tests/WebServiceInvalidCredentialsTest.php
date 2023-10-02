@@ -66,7 +66,7 @@ class WebServiceInvalidCredentialsTest extends TestCase
     public function test_GetDeliveryReports_Should_Be_Invalid_Credentials()
     {
         $this->prepareData();
-        $messageIds = ['750dea2d-0d2e-4d40-ba68-ff39b5164db8', '750dea2d-0d2e-4d40-ba68-ff39b5164db8'];
+        $messageIds = ['120dea2d-0d2e-4d20-ba68-ff49n9954db8', '733dea7d-0d4e-4p70-ba68-fa39b5164db8'];
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid Credentials');
