@@ -9,10 +9,6 @@ use DateTimeInterface;
 use HostedSms\WebService\Responses\{CheckPhonesResponse, ConvertToGsm7Response, GetDeliveryReportsResponse, 
     GetInputSmsesResponse, GetUnreadDeliveryReportsResponse, GetUnreadInputSmsesResponse, GetValidSendersResponse, SendSmsResponse, SendSmsesResponse};
 
-//require_once 'Exceptions.php';
-//require_once 'Responses.php';
-//require_once 'SoapRequestClient.php';
-
 class HostedSmsWebService
 {
     private $client;
