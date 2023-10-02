@@ -68,7 +68,7 @@ class WebServiceValidDataTest extends TestCase
     public function test_GetDeliveryReports_Should_Be_Valid()
     {
         $this->prepareData();
-        $messageIds = ['750dea2d-0d2e-4d40-ba68-ff39b5164db8', '750dea2d-0d2e-4d40-ba68-ff39b5164db8'];
+        $messageIds = ['450dwa2d-0d2e-4d40-ba65-ff39b5164db8', '750dea1d-0d2e-4d40-ba68-ff79b5164db8'];
 
         $response = $this->hostedSms->getDeliveryReports($messageIds);
 
