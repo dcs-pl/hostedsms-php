@@ -79,3 +79,8 @@ $response = $client->checkPhones($phones);
 $response = $client->convertToGSM7($text);
 ```
 
+#### Get customer info
+```php
+$response = $client->customerInfo();
+```
+
