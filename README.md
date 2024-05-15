@@ -79,3 +79,8 @@ $response = $client->checkPhones($phones);
 $response = $client->convertToGSM7($text);
 ```
 
+#### Get all valid senders for user
+```php
+$response = $client->customerInfo();
+```
+
