@@ -118,5 +118,15 @@ class WebServiceValidDataTest extends TestCase
 
         $this->assertNotNull($response->currentTime);
     }
+
+    /** @test */
+    public function test_CustomerInfo_Should_Be_Valid()
+    {
+        $this->prepareData();
+
+        $response = $this->hostedSms->customerInfo();
+
+        $this->assertNotNull($response->currentTime);
+    }
 }
 ?>
