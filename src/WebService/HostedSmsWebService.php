@@ -7,7 +7,7 @@ namespace HostedSms\WebService;
 use DateTimeInterface;
 
 use HostedSms\WebService\Responses\{CheckPhonesResponse, ConvertToGsm7Response, GetDeliveryReportsResponse, 
-    GetInputSmsesResponse, GetUnreadDeliveryReportsResponse, GetUnreadInputSmsesResponse, GetValidSendersResponse, SendSmsResponse, SendSmsesResponse};
+    GetInputSmsesResponse, GetUnreadDeliveryReportsResponse, GetUnreadInputSmsesResponse, GetValidSendersResponse, SendSmsResponse, SendSmsesResponse, CustomerInfoResponse};
 
 class HostedSmsWebService
 {
@@ -287,5 +287,24 @@ class HostedSmsWebService
         }
 
         return new SendSmsesResponse($response);
+    }
+
+    /**
+     * Gets customer info
+     * 
+     * @return CustomerInfoResponse if successful request
+     * 
+     * @throws WebServiceException if failed request
+     */
+    public function customerInfo()
+    {
+        $params = [];
+        $response = $this->client->sendRequest('CustomerInfo', $params);
+
+        if (!$response->CustomerInfoResult) {
+            throw new WebServiceException($response->ErrorMessage);
+        }
+
+        return new CustomerInfoResponse($response);
     }
 }
